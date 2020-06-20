@@ -13,5 +13,12 @@
         "psr-4": {
             "Skoro\\AdminPack\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Skoro\\AdminPack\\AdminServiceProvider"
+            ]
+        }
     }
 }
