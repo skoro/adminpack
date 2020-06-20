@@ -1,0 +1,17 @@
+{
+    "name": "skoro/adminpack",
+    "description": "Simple and easy admin package for your Laravel project.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oleksii Skorobogatko",
+            "email": "skorobogatko.oleksii@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Skoro\\AdminPack\\": "src/"
+        }
+    }
+}
