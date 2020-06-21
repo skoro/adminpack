@@ -1,5 +1,7 @@
 <?php
 
+namespace Skoro\AdminPack\Seeders;
+
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Skoro\AdminPack\Models\Option;
