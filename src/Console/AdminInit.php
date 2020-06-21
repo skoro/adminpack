@@ -28,6 +28,7 @@ class AdminInit extends Command
      */
     public function handle()
     {
+        $this->info('Executing seeders...');
         Artisan::call('db:seed', [
             '--class' => \Skoro\AdminPack\Seeders\AdminSeeder::class,
         ]);
