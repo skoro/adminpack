@@ -1,6 +1,5 @@
 <?php
 
-use App\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,9 +14,9 @@ class UsersAddStatus extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('status')
+            $table->unsignedTinyInteger('status')
                 ->after('name')
-                ->default(User::STATUS_DISABLED);
+                ->default(0);
         });
     }
 
