@@ -25,5 +25,15 @@ class AdminServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->registerCommands();
+    }
+
+    private function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Console\AdminInit::class,
+            ]);
+        }
     }
 }
