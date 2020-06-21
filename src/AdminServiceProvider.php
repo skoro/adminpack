@@ -40,6 +40,10 @@ class AdminServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Console\AdminInit::class,
+                Console\OptionGet::class,
+                Console\OptionList::class,
+                Console\OptionSet::class,
+                Console\OptionDelete::class,
             ]);
         }
     }
