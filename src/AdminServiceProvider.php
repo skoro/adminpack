@@ -2,6 +2,7 @@
 
 namespace Skoro\AdminPack;
 
+use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\ServiceProvider;
 
 class AdminServiceProvider extends ServiceProvider
@@ -26,6 +27,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
         $this->registerMigrations();
         $this->registerCommands();
+        $this->registerMiddleware(Http\Middleware\RegisterIsEnabled::class);
     }
 
     private function registerMigrations()
@@ -46,5 +48,16 @@ class AdminServiceProvider extends ServiceProvider
                 Console\OptionDelete::class,
             ]);
         }
+    }
+
+    /**
+     * Register the package middleware.
+     *
+     * @param string $middleware The middleware class name.
+     */
+    private function registerMiddleware($middleware)
+    {
+        $kernel = $this->app[Kernel::class];
+        $kernel->pushMiddleware($middleware);
     }
 }
