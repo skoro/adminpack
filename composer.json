@@ -12,7 +12,10 @@
     "autoload": {
         "psr-4": {
             "Skoro\\AdminPack\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "extra": {
         "laravel": {
