@@ -15,6 +15,7 @@ class AdminServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('option', Models\Option::class);
+        $this->app->register(EventServiceProvider::class);
     }
 
     /**
