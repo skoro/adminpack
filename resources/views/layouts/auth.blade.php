@@ -7,8 +7,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <script src="{{ asset(mix('app.js', 'vendor/adminpack')) }}" defer></script>
-
     <link href="{{ asset(mix('app.css', 'vendor/adminpack')) }}" rel="stylesheet" type="text/css">
 </head>
 
@@ -44,5 +42,7 @@
     </div> <!-- /#layoutAuthentication_footer -->
 
   </div> <!-- /#layoutAuthentication -->
+
+  <script src="{{ asset(mix('app.js', 'vendor/adminpack')) }}"></script>
 
 </body>
