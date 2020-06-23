@@ -27,13 +27,23 @@ class AdminServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
-        $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/admin'),
-        ]);
+        $this->registerPublishing();
         $this->registerViewComponents();
         $this->registerMigrations();
         $this->registerCommands();
         $this->registerMiddleware(Http\Middleware\RegisterIsEnabled::class);
+    }
+
+    private function registerPublishing()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../resources/views' => resource_path('views/vendor/admin'),
+            ], 'adminpack-views');
+            $this->publishes([
+                __DIR__ . '/../public' => public_path('vendor/adminpack'),
+            ], 'adminpack-assets');
+        }
     }
 
     private function registerMigrations()
