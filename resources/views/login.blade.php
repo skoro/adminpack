@@ -1,4 +1,4 @@
-@extends('layouts.auth')
+@extends('admin::layouts.auth')
 
 @section('content')
 <div class="view-login col-lg-5">
@@ -11,7 +11,7 @@
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('admin.login') }}">
                 @csrf
                 
                 <div class="form-group">
@@ -71,23 +71,13 @@
                             {{ __('Forgot Your Password?') }}
                         </a>
                     @endif
-                    <x-button type="submit">
+                    <x-admin-button type="submit">
                         {{ __('Login') }}
-                    </x-button>
+                    </x-admin-button>
                 </div>
 
             </form>
         </div> <!-- /.card-body -->
-
-        @if (option('user_register_enable'))
-            <div class="card-footer text-center">
-                <div class="small">
-                    <a href="{{ route('register') }}">
-                        {{ __('Need an account? Sign up!') }}
-                    </a>
-                </div>
-            </div>
-        @endif
 
     </div>
 </div> <!-- /.view-login -->
