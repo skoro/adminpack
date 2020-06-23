@@ -3,6 +3,7 @@
 namespace Skoro\AdminPack;
 
 use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class AdminServiceProvider extends ServiceProvider
@@ -26,8 +27,8 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__ . '/routes.php');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
+        $this->registerRoutes();
         $this->registerPublishing();
         $this->registerViewComponents();
         $this->registerMigrations();
@@ -54,6 +55,9 @@ class AdminServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * Registers the package 'artisan' console commands.
+     */
     private function registerCommands()
     {
         if ($this->app->runningInConsole()) {
@@ -78,6 +82,9 @@ class AdminServiceProvider extends ServiceProvider
         $kernel->pushMiddleware($middleware);
     }
 
+    /**
+     * Registers the package Blade components.
+     */
     private function registerViewComponents()
     {
         $this->loadViewComponentsAs('admin', [
@@ -88,5 +95,27 @@ class AdminServiceProvider extends ServiceProvider
             View\Components\FormRow::class,
             View\Components\Icon::class,
         ]);
+    }
+
+    /**
+     * Registers the package routes.
+     */
+    private function registerRoutes()
+    {
+        Route::group($this->routeConfiguration(), function () {
+            $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
+        });
+    }
+
+    /**
+     * Gets the AdminPack route group configuration.
+     */
+    private function routeConfiguration(): array
+    {
+        return [
+            'namespace' => 'Skoro\AdminPack\Http\Controllers',
+            'prefix' => 'admin', // TODO: configuration
+            'middleware' => 'web',
+        ];
     }
 }
