@@ -26,6 +26,10 @@ class AdminServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'adminpack');
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/adminpack'),
+        ]);
         $this->registerMigrations();
         $this->registerCommands();
         $this->registerMiddleware(Http\Middleware\RegisterIsEnabled::class);
