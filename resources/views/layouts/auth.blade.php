@@ -7,9 +7,9 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset(mix('app.js', 'vendor/adminpack')) }}" defer></script>
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset(mix('app.css', 'vendor/adminpack')) }}" rel="stylesheet" type="text/css">
 </head>
 
 <body class="bg-primary">
