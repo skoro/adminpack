@@ -26,10 +26,11 @@ class AdminServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'adminpack');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/adminpack'),
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/admin'),
         ]);
+        $this->registerViewComponents();
         $this->registerMigrations();
         $this->registerCommands();
         $this->registerMiddleware(Http\Middleware\RegisterIsEnabled::class);
@@ -64,5 +65,17 @@ class AdminServiceProvider extends ServiceProvider
     {
         $kernel = $this->app[Kernel::class];
         $kernel->pushMiddleware($middleware);
+    }
+
+    private function registerViewComponents()
+    {
+        $this->loadViewComponentsAs('admin', [
+            View\Components\Alert::class,
+            View\Components\Button::class,
+            View\Components\DeleteModel::class,
+            View\Components\FormActions::class,
+            View\Components\FormRow::class,
+            View\Components\Icon::class,
+        ]);
     }
 }
