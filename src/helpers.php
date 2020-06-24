@@ -3,6 +3,18 @@
 use Skoro\AdminPack\Models\Permission;
 use Skoro\AdminPack\Models\Role;
 
+if (! function_exists('auth_admin')) {
+    /**
+     * Returns authentication admin guard.
+     *
+     * @return \Illuminate\Auth\SessionGuard
+     */
+    function auth_admin()
+    {
+        return auth('admin');
+    }
+}
+
 if (!function_exists('roles')) {
     /**
      * Returns all available roles ordered by name.
