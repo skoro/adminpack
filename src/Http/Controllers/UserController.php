@@ -98,7 +98,7 @@ class UserController extends AdminController
     {
         $updateUser->update($user, $request->getUserDto());
         
-        if (auth()->id() == $user->id) {
+        if (auth_admin()->id() == $user->id) {
             toast(__('Your profile has been updated.'));
         } else {
             toast(__('User ":user" has been updated.', [
