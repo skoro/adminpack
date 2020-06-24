@@ -23,7 +23,7 @@ class OptionRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('manageOptions');
+        return auth_admin()->user()->can('manageOptions');
     }
 
     /**

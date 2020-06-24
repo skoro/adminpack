@@ -23,3 +23,6 @@ Route::post('role/create', 'RoleController@store')->name('admin.role.store');
 Route::get('role/{role}', 'RoleController@edit')->name('admin.role.edit');
 Route::put('role/{role}', 'RoleController@update')->name('admin.role.update');
 Route::delete('role/{role}', 'RoleController@destroy')->name('admin.role.delete');
+
+Route::get('options', 'OptionController@index')->name('admin.options');
+Route::put('options/{group}', 'OptionController@update')->name('admin.options.update');
