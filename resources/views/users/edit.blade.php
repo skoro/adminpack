@@ -1,10 +1,10 @@
 @php
 /**
- * @param \App\User $user
+ * @param \Skoro\AdminPack\Models\User $user
  */
 @endphp
 
-@extends('layouts.admin')
+@extends('admin::layouts.admin')
 
 @section('title', __('User'))
 @section('subTitle', $user->name)
@@ -14,23 +14,23 @@
         @csrf
         @method('PUT')
         
-        @include('admin.users._edit-form')
+        @include('admin::users._edit-form')
 
-        <x-form-actions :back-url="route('admin.users')">
+        <x-admin-form-actions :back-url="route('admin.users')">
 
-            @if (Auth::user()->can('delete', $user) && Auth::user()->id != $user->id)
+            @if (auth_admin()->user()->can('delete', $user) && auth_admin()->id() != $user->id)
                 <x-slot name="secondary">
-                    <x-delete-model :title="__('Delete User ?')" :action="route('admin.user.delete', $user)">
+                    <x-admin-delete-model :title="__('Delete User ?')" :action="route('admin.user.delete', $user)">
                         <p>{{ __('Are you sure you want to delete user:') }}</p>
                         <strong>{{ $user->name }}</strong>
                         <div>
                             <span class="badge badge-info">{{ $user->role->name }}</span>
                         </div>
-                    </x-delete-model>
+                    </x-admin-delete-model>
                 </x-slot>
             @endif
 
-        </x-form-actions>
+        </x-admin-form-actions>
 
     </form>
 @endsection

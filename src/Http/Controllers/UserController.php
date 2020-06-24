@@ -18,7 +18,7 @@ class UserController extends AdminController
 
     public function __construct()
     {
-        $this->authorizeResource(User::class, 'user');
+        // $this->authorizeResource(User::class, 'user');
     }
 
     public function data(Request $request)
@@ -82,7 +82,7 @@ class UserController extends AdminController
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit', [
+        return view('admin::users.edit', [
             'user' => $user,
         ]);
     }

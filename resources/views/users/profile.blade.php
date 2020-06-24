@@ -1,11 +1,11 @@
 @php
 /**
- * @param \App\User $user
+ * @param \Skoro\AdminPack\Models\User $user
  */
-$user = auth()->user();
+$user = auth_admin()->user();
 @endphp
 
-@extends('layouts.admin')
+@extends('admin::layouts.admin')
 
 @section('title', __('Profile'))
 @section('subTitle', $user->name)
@@ -15,10 +15,9 @@ $user = auth()->user();
         @csrf
         @method('PUT')
 
-        @include('admin.users._edit-form')
+        @include('admin::users._edit-form')
 
-        <x-form-actions>
-        </x-form-actions>
+        <x-admin-form-actions/>
         
     </form>
 @endsection
