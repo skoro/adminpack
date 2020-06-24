@@ -53,6 +53,6 @@ class FormRow extends Component
      */
     public function render()
     {
-        return view('components.form-row');
+        return view('admin::components.form-row');
     }
 }

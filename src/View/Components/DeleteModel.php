@@ -56,7 +56,7 @@ class DeleteModel extends Component
      */
     public function render()
     {
-        return view('components.delete-model');
+        return view('admin::components.delete-model');
     }
 
     /**

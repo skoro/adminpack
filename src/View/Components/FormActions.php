@@ -53,6 +53,6 @@ class FormActions extends Component
      */
     public function render()
     {
-        return view('components.form-actions');
+        return view('admin::components.form-actions');
     }
 }
