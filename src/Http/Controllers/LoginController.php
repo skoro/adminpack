@@ -56,6 +56,6 @@ class LoginController extends AdminController
      */
     protected function redirectTo(): string
     {
-        return route('admin.index');
+        return route('admin.home');
     }
 }
