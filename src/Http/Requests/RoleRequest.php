@@ -18,7 +18,7 @@ class RoleRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('manageRoles');
+        return auth_admin()->user()->can('manageRoles');
     }
 
     /**

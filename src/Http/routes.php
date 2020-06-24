@@ -18,3 +18,8 @@ Route::put('user/{user}', 'UserController@update')->name('admin.user.update');
 Route::delete('user/{user}', 'UserController@destroy')->name('admin.user.delete');
 
 Route::view('roles', 'admin::roles.index')->name('admin.roles');
+Route::view('role/create', 'admin::roles.create')->name('admin.role.create');
+Route::post('role/create', 'RoleController@store')->name('admin.role.store');
+Route::get('role/{role}', 'RoleController@edit')->name('admin.role.edit');
+Route::put('role/{role}', 'RoleController@update')->name('admin.role.update');
+Route::delete('role/{role}', 'RoleController@destroy')->name('admin.role.delete');

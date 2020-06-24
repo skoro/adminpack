@@ -58,7 +58,7 @@
                     <div id="collapseUsers" class="collapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
 
-                            @admincan('create1'))
+                            @admincan('create')
                                 <a href="{{ route('admin.user.create') }}" class="nav-link">
                                     {{ __('New User') }}
                                 </a>
@@ -70,11 +70,11 @@
                                 </a>
                             @endadmincan
 
-                            @can('manageRoles', \Skoro\AdminPack\Models\User::class)
+                            @admincan('manageRoles')
                                 <a href="{{ route('admin.roles') }}" class="nav-link">
                                     {{ __('Roles') }}
                                 </a>
-                            @endcan
+                            @endadmincan
                         </nav>
                     </div>
                     @endadmincan
