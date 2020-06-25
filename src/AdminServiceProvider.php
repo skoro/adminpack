@@ -2,9 +2,13 @@
 
 namespace Skoro\AdminPack;
 
-use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Auth\Access\Gate;
+use Skoro\AdminPack\Models\User;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -33,7 +37,8 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerViewComponents();
         $this->registerMigrations();
         $this->registerCommands();
-        $this->registerMiddleware(Http\Middleware\RegisterIsEnabled::class);
+        $this->registerMiddlewares();
+        $this->registerBladeDirectives();
     }
 
     private function registerPublishing()
@@ -72,14 +77,14 @@ class AdminServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the package middleware.
-     *
-     * @param string $middleware The middleware class name.
+     * Registers the package http middlewares.
      */
-    private function registerMiddleware($middleware)
+    private function registerMiddlewares()
     {
-        $kernel = $this->app[Kernel::class];
-        $kernel->pushMiddleware($middleware);
+        /** @var \Illuminate\Routing\Router $router */
+        $router = $this->app->make(Router::class);
+        $router->aliasMiddleware('auth_admin', Http\Middleware\Authenticate::class);
+        $router->aliasMiddleware('guest_admin', Http\Middleware\RedirectIfAuthenticated::class);
     }
 
     /**
@@ -117,5 +122,15 @@ class AdminServiceProvider extends ServiceProvider
             'prefix' => 'admin', // TODO: configuration
             'middleware' => 'web',
         ];
+    }
+
+    private function registerBladeDirectives()
+    {
+        Blade::if('admincan', function ($abilities, $arguments = []) {
+            if (empty($arguments)) {
+                $arguments[] = User::class;
+            }
+            return auth_admin()->user()->can($abilities, $arguments);
+        });
     }
 }
