@@ -83,6 +83,8 @@ class AdminServiceProvider extends ServiceProvider
     {
         /** @var \Illuminate\Routing\Router $router */
         $router = $this->app->make(Router::class);
+
+        // Package middlewares.
         $router->aliasMiddleware('auth_admin', Http\Middleware\Authenticate::class);
         $router->aliasMiddleware('guest_admin', Http\Middleware\RedirectIfAuthenticated::class);
     }
@@ -131,6 +133,13 @@ class AdminServiceProvider extends ServiceProvider
                 $arguments[] = User::class;
             }
             return auth_admin()->user()->can($abilities, $arguments);
+        });
+        Blade::if('admincanany', function ($abilities, $arguments = []) {
+            $user = auth_admin()->user();
+            if (empty($arguments)) {
+                $arguments[] = User::class;
+            }
+            return app(Gate::class)->forUser($user)->any($abilities, $arguments);
         });
     }
 }
