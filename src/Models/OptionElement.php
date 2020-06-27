@@ -11,6 +11,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class OptionElement extends Model
 {
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'admin_option_elements';
+
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool

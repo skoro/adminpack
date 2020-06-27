@@ -16,7 +16,7 @@ class OptionElementRepository
      */
     public function groups(): Collection
     {
-        return DB::table('option_elements')
+        return DB::table('admin_option_elements')
             ->distinct()
             ->select('group')
             ->get()

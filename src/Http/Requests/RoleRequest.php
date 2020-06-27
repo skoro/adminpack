@@ -41,12 +41,12 @@ class RoleRequest extends FormRequest
         $rules = [
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'permission' => ['required', 'array'],
-            'permission.*' => ['integer', 'exists:permissions,id'],
+            'permission.*' => ['integer', 'exists:admin_permissions,id'],
         ];
 
         switch ($this->method()) {
             case 'POST': // new role
-                $rules['name'][] = 'unique:roles,name';
+                $rules['name'][] = 'unique:admin_roles,name';
                 break;
 
             case 'PUT': // edit role
@@ -54,7 +54,7 @@ class RoleRequest extends FormRequest
                 if (empty($role)) {
                     throw new RuntimeException('Parameter "role" is required.');
                 }
-                $rules['name'][] = Rule::unique('roles', 'name')->ignore($role);
+                $rules['name'][] = Rule::unique('admin_roles', 'name')->ignore($role);
                 break;
 
             default:

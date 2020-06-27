@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UsersAddStatus extends Migration
+class CreateAdminOptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class UsersAddStatus extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedTinyInteger('status')
-                ->after('name')
-                ->default(0);
+        Schema::create('admin_options', function (Blueprint $table) {
+            $table->id();
+            $table->string('key')->unique();
+            $table->json('value');
         });
     }
 
@@ -27,8 +27,6 @@ class UsersAddStatus extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('status');
-        });
+        Schema::dropIfExists('admin_options');
     }
 }

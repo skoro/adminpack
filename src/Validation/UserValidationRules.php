@@ -31,7 +31,7 @@ class UserValidationRules
         /**
          * The email must be globally unique.
          */
-        $rules['email'][] = 'unique:users';
+        $rules['email'][] = 'unique:admin_users';
 
         /**
          * Password rule.
@@ -75,7 +75,7 @@ class UserValidationRules
         /**
          * Email must be unique but must be skipped the current user.
          */
-        $rules['email'][] = Rule::unique('users')->ignore($user);
+        $rules['email'][] = Rule::unique('admin_users')->ignore($user);
 
         /**
          * Password is optional during updating the user.
@@ -125,7 +125,7 @@ class UserValidationRules
             'role' => [
                 'required',
                 'int',
-                'exists:roles,id',
+                'exists:admin_roles,id',
             ],
         ];
     }

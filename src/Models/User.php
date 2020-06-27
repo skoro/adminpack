@@ -29,6 +29,13 @@ class User extends Authenticatable
     const STATUS_DISABLED = 0;
 
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'admin_users';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

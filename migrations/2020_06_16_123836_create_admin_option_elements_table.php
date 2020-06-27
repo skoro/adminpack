@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOptionElementsTable extends Migration
+class CreateAdminOptionElementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOptionElementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('option_elements', function (Blueprint $table) {
+        Schema::create('admin_option_elements', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('option_id');
             $table->unsignedBigInteger('perm_id');
@@ -27,11 +27,11 @@ class CreateOptionElementsTable extends Migration
 
             $table->foreign('option_id')
                 ->references('id')
-                ->on('options')
+                ->on('admin_options')
                 ->onDelete('RESTRICT');
             $table->foreign('perm_id')
                 ->references('id')
-                ->on('permissions')
+                ->on('admin_permissions')
                 ->onDelete('RESTRICT');
 
             $table->index('group');
@@ -45,6 +45,6 @@ class CreateOptionElementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('option_elements');
+        Schema::dropIfExists('admin_option_elements');
     }
 }

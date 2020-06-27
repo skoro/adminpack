@@ -17,6 +17,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Role extends Model
 {
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'admin_roles';
+
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
@@ -28,7 +35,7 @@ class Role extends Model
      */
     public function permissions(): BelongsToMany
     {
-        return $this->belongsToMany(Permission::class, 'role_perms');
+        return $this->belongsToMany(Permission::class, 'admin_role_perms');
     }
 
     /**

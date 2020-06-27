@@ -16,6 +16,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Option extends Model
 {
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'admin_options';
+
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool

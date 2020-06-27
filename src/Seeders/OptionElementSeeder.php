@@ -23,7 +23,7 @@ class OptionElementSeeder extends Seeder
 
         $roles = roles()->pluck('name', 'id')->toArray();
 
-        DB::table('option_elements')->insert([
+        DB::table('admin_option_elements')->insert([
             'option_id' => Option::where('key', 'user_register_enable')->first()->id,
             'perm_id' => $perm->id,
             'label' => 'User registration',
@@ -33,7 +33,7 @@ class OptionElementSeeder extends Seeder
             'validators' => 'required|bool',
             'priority' => 0,
         ]);
-        DB::table('option_elements')->insert([
+        DB::table('admin_option_elements')->insert([
             'option_id' => Option::where('key', 'user_default_role')->first()->id,
             'perm_id' => $perm->id,
             'label' => 'Default role',
@@ -41,10 +41,10 @@ class OptionElementSeeder extends Seeder
             'group' => 'User',
             'values' => json_encode($roles),
             'widget' => 'select',
-            'validators' => 'required|int|exists:roles,id',
+            'validators' => 'required|int|exists:admin_roles,id',
             'priority' => 0,
         ]);
-        DB::table('option_elements')->insert([
+        DB::table('admin_option_elements')->insert([
             'option_id' => Option::where('key', 'user_password_min')->first()->id,
             'perm_id' => $perm->id,
             'label' => 'Minimum password length',

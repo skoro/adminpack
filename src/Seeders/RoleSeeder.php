@@ -14,7 +14,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('roles')->insert([
+        DB::table('admin_roles')->insert([
             [
                 'id' => 1,
                 'name' => 'administrator',
@@ -29,7 +29,7 @@ class RoleSeeder extends Seeder
             ],
         ]);
 
-        DB::table('permissions')->insert([
+        DB::table('admin_permissions')->insert([
             [
                 'id' => 1,
                 'scope' => 'user',
@@ -72,7 +72,7 @@ class RoleSeeder extends Seeder
             ],
         ]);
 
-        DB::table('role_perms')->insert([
+        DB::table('admin_role_perms')->insert([
             ['role_id' => 1, 'permission_id' => 1],
             ['role_id' => 1, 'permission_id' => 2],
             ['role_id' => 1, 'permission_id' => 3],
