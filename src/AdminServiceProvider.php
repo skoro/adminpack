@@ -36,6 +36,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerPublishing();
         $this->registerViewComponents();
         $this->registerMigrations();
+        $this->registerFactories();
         $this->registerCommands();
         $this->registerMiddlewares();
         $this->registerBladeDirectives();
@@ -56,7 +57,17 @@ class AdminServiceProvider extends ServiceProvider
     private function registerMigrations()
     {
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        }
+    }
+
+    /**
+     * Registers the model factories.
+     */
+    private function registerFactories()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->loadFactoriesFrom(__DIR__ . '/../database/factories');
         }
     }
 
