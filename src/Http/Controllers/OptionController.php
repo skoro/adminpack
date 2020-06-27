@@ -12,6 +12,14 @@ use Illuminate\Http\Request;
 class OptionController extends AdminController
 {
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('can:manageOptions');
+    }
+
+    /**
      * Options page.
      *
      * The action accepts the 't' query parameter that sets

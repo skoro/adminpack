@@ -16,11 +16,27 @@ use Illuminate\Http\Request;
 class UserController extends AdminController
 {
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
-        // $this->authorizeResource(User::class, 'user');
+        $this->authorizeResource(User::class, 'user');
     }
 
+    /**
+     * Show the users list page.
+     */
+    public function index()
+    {
+        return view('admin::users.index');
+    }
+
+    /**
+     * Returns a users collection.
+     *
+     * @param Request $request
+     */
     public function data(Request $request)
     {
         $request->validate([
@@ -55,6 +71,14 @@ class UserController extends AdminController
         }
         
         return UserResource::collection($users);
+    }
+
+    /**
+     * Show a create user form.
+     */
+    public function create()
+    {
+        return view('admin::users.create');
     }
 
     /**

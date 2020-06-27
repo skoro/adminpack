@@ -45,7 +45,7 @@
                         {{ __('System') }}
                     </div>
                     
-                    @admincan(['create', 'viewAny', 'manageRoles'])
+                    @admincanany(['create', 'viewAny', 'manageRoles'])
                     <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUses">
                         <div class="sb-nav-link-icon">
                             <i class="fas fa-users"></i>
@@ -77,7 +77,7 @@
                             @endadmincan
                         </nav>
                     </div>
-                    @endadmincan
+                    @endadmincanany
 
                     @admincan('manageOptions')
                     <a class="nav-link" href="{{ route('admin.options') }}">

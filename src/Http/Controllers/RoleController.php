@@ -13,9 +13,29 @@ class RoleController extends AdminController
 {
     protected RoleService $roleService;
 
+    /**
+     * @param RoleService $roleService
+     */
     public function __construct(RoleService $roleService)
     {
+        $this->middleware('can:manageRoles');
         $this->roleService = $roleService;
+    }
+
+    /**
+     * Roles index.
+     */
+    public function index()
+    {
+        return view('admin::roles.index');
+    }
+
+    /**
+     * Shows a new role page.
+     */
+    public function create()
+    {
+        return view('admin::roles.create');
     }
 
     /**

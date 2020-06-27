@@ -13,17 +13,17 @@ Route::middleware('auth_admin:admin')->group(function () {
 
     Route::get('/', 'HomeController@index')->name('admin.home');
 
-    Route::view('users', 'admin::users.index')->name('admin.users');
+    Route::get('users', 'UserController@index')->name('admin.users');
     Route::view('user/profile', 'admin::users.profile')->name('admin.user.profile');
     Route::get('users/data', 'UserController@data')->name('admin.users.data');
-    Route::view('user/create', 'admin::users.create')->name('admin.user.create');
+    Route::get('user/create', 'UserController@create')->name('admin.user.create');
     Route::post('user/create', 'UserController@store')->name('admin.user.store');
     Route::get('user/{user}', 'UserController@edit')->name('admin.user.edit');
     Route::put('user/{user}', 'UserController@update')->name('admin.user.update');
     Route::delete('user/{user}', 'UserController@destroy')->name('admin.user.delete');
     
-    Route::view('roles', 'admin::roles.index')->name('admin.roles');
-    Route::view('role/create', 'admin::roles.create')->name('admin.role.create');
+    Route::get('roles', 'RoleController@index')->name('admin.roles');
+    Route::get('role/create', 'RoleController@create')->name('admin.role.create');
     Route::post('role/create', 'RoleController@store')->name('admin.role.store');
     Route::get('role/{role}', 'RoleController@edit')->name('admin.role.edit');
     Route::put('role/{role}', 'RoleController@update')->name('admin.role.update');
