@@ -15,7 +15,7 @@ if (! function_exists('auth_admin')) {
     }
 }
 
-if (!function_exists('roles')) {
+if (! function_exists('roles')) {
     /**
      * Returns all available roles ordered by name.
      *
@@ -27,7 +27,7 @@ if (!function_exists('roles')) {
     }
 }
 
-if (!function_exists('scope_permissions')) {
+if (! function_exists('scope_permissions')) {
     /**
      * Returns permissions indexed by scope.
      */
@@ -37,7 +37,7 @@ if (!function_exists('scope_permissions')) {
     }
 }
 
-if (!function_exists('toast')) {
+if (! function_exists('toast')) {
     /**
      * Shows a short toast message.
      *
