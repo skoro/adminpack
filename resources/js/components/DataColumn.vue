@@ -2,10 +2,8 @@
     <th scope="col">
         <a v-if="sortable" href="#" @click.prevent="onClick">
             <slot>{{ name }}</slot>
-            <small v-if="order" class="text-muted">
-                <i v-if="isDesc" class="fas fa-arrow-down"></i>
-                <i v-if="isAsc" class="fas fa-arrow-up"></i>
-            </small>
+            <b v-if="order && isDesc" class="sort order-desc">&darr;</b>
+            <b v-if="order && isAsc" class="sort order-asc">&uarr;</b>
         </a>
         <slot v-else>{{ name }}</slot>
     </th>
