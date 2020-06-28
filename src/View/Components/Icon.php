@@ -117,6 +117,18 @@ class Icon extends Component
                 'd' => 'M4.5 9a3.5 3.5 0 1 0 0 7h7a3.5 3.5 0 1 0 0-7h-7zm7 6a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm-7-14a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm2.45 0A3.49 3.49 0 0 1 8 3.5 3.49 3.49 0 0 1 6.95 6h4.55a2.5 2.5 0 0 0 0-5H6.95zM4.5 0h7a3.5 3.5 0 1 1 0 7h-7a3.5 3.5 0 1 1 0-7z',
             ],
         ],
+
+        // https://icons.getbootstrap.com/icons/info-circle/
+        'info-circle' => [
+            [
+                'fill-rule' => 'evenodd',
+                'd' => 'M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z',
+            ],
+            [
+                'd' => 'M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z',
+            ],
+            'circle' => ['cx' => '8', 'cy' => '4.5', 'r' => '1'],
+        ],
     ];
 
     /**
@@ -138,8 +150,8 @@ class Icon extends Component
     {
         return <<<'blade'
             <svg {{ $attributes->merge(['class' => "bi bi-$icon", 'width' => '1em', 'height' => '1em']) }} viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            @foreach ($getIconData() as $path)
-                <path @foreach ($path as $attr => $value) {{ $attr }}="{{ $value }}" @endforeach />
+            @foreach ($getIconData() as $tag => $elems)
+                <{{ $getTag($tag) }} @foreach ($elems as $attr => $value) {{ $attr }}="{{ $value }}" @endforeach />
             @endforeach
             </svg>
         blade;
@@ -154,5 +166,15 @@ class Icon extends Component
             throw new RuntimeException("Couldn't get data for icon: " . $this->icon);
         }
         return $this->data[$this->icon];
+    }
+
+    /**
+     * Get SVG drawing tag.
+     *
+     * @param string|int $tag An integer value treats as 'path' tag.
+     */
+    public function getTag($tag): string
+    {
+        return is_int($tag) ? 'path' : $tag;
     }
 }
