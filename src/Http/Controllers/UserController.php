@@ -52,7 +52,7 @@ class UserController extends AdminController
                     $sortField = 'created_at';
                     break;
                 case 'role':
-                    $sortField = 'roles.name';
+                    $sortField = 'admin_roles.name';
                     break;
                 default:
                     $sortField = $sort;
@@ -61,8 +61,8 @@ class UserController extends AdminController
             switch ($sort) {
                 case 'role':
                     $query
-                        ->select('users.*')
-                        ->join('roles', 'roles.id', '=', 'users.role_id');
+                        ->select('admin_users.*')
+                        ->join('admin_roles', 'admin_roles.id', '=', 'admin_users.role_id');
                     break;
             }
             $users = $query->paginate();
