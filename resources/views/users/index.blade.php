@@ -10,12 +10,12 @@
 @section('content')
     <p>
         @admincan('create')
-            <x-admin-button icon="plus" type="toolbar" :url="route('admin.user.create')">
+            <x-admin-button icon="person-plus-fill" type="toolbar" :url="route('admin.user.create')">
                 {{ __('New User') }}
             </x-admin-button>
         @endadmincan
         @admincan('manageRoles')
-            <x-admin-button icon="shield-alt" type="toolbar" :url="route('admin.roles')">
+            <x-admin-button icon="shield-shaded" type="toolbar" :url="route('admin.roles')">
                 {{ __('Roles') }}
             </x-admin-button>
         @endadmincan

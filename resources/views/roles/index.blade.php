@@ -10,7 +10,7 @@ $defaultRole = option('user_default_role');
 
 @section('content')
     <p>
-        <x-admin-button icon="plus" type="toolbar" :url="route('admin.role.create')">
+        <x-admin-button icon="plus-circle-fill" type="toolbar" :url="route('admin.role.create')">
             {{ __('New Role') }}
         </x-admin-button>
     </p>
@@ -32,7 +32,7 @@ $defaultRole = option('user_default_role');
                         @if ($defaultRole == $role->id)
                             <x-admin-icon
                                 id="defaultRole"
-                                icon="star"
+                                icon="star-fill"
                                 class="text-warning"
                                 data-toggle="popover"
                                 data-placement="right"

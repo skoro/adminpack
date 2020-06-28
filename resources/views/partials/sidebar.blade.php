@@ -8,7 +8,9 @@
 
                     <div class="sb-sidenav-menu-heading">Core</div>
                     <a class="nav-link" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <div class="sb-nav-link-icon">
+                            <x-admin-icon icon="diagram-3-fill"/>
+                        </div>
                         Dashboard
                     </a>
 
@@ -48,7 +50,7 @@
                     @admincanany(['create', 'viewAny', 'manageRoles'])
                     <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUses">
                         <div class="sb-nav-link-icon">
-                            <i class="fas fa-users"></i>
+                            <x-admin-icon icon="people-fill"/>
                         </div>
                         {{ __('Users') }}
                         <div class="sb-sidenav-collapse-arrow">&#9662;</div>
@@ -79,7 +81,9 @@
 
                     @admincan('manageOptions')
                     <a class="nav-link" href="{{ route('admin.options') }}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <div class="sb-nav-link-icon">
+                            <x-admin-icon icon="toggles"/>
+                        </div>
                         {{ __('Options') }}
                     </a>
                     @endadmincan
