@@ -10,7 +10,7 @@
                 aria-atomic="true"
             >
                 <div class="toast-header">
-                    <x-admin-icon icon="info-circle" class="mr-2"></x-admin-icon>
+                    <x-admin-icon icon="info-circle" class="mr-2"/>
                     <strong class="mr-auto">
                         {{ __('Info') }}
                     </strong>
