@@ -3,7 +3,6 @@
 namespace Skoro\AdminPack;
 
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -42,23 +41,29 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerBladeDirectives();
     }
 
+    /**
+     * Registers the package publishable resources.
+     */
     private function registerPublishing()
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../resources/views' => resource_path('views/vendor/admin'),
-            ], 'adminpack-views');
+            ], 'admin-views');
 
             $this->publishes([
-                __DIR__ . '/../public' => public_path('vendor/adminpack'),
-            ], 'adminpack-assets');
+                __DIR__ . '/../public' => public_path('vendor/admin'),
+            ], 'admin-assets');
 
             $this->publishes([
                 __DIR__ . '/../config/admin.php' => config_path('admin.php'),
-            ], 'adminpack-config');
+            ], 'admin-config');
         }
     }
 
+    /**
+     * Registers the package migrations.
+     */
     private function registerMigrations()
     {
         if ($this->app->runningInConsole()) {
@@ -142,6 +147,9 @@ class AdminServiceProvider extends ServiceProvider
         ];
     }
 
+    /**
+     * Registers the package new Blade directives.
+     */
     private function registerBladeDirectives()
     {
         Blade::if('admincan', function ($abilities, $arguments = []) {
@@ -150,6 +158,7 @@ class AdminServiceProvider extends ServiceProvider
             }
             return auth_admin()->user()->can($abilities, $arguments);
         });
+
         Blade::if('admincanany', function ($abilities, $arguments = []) {
             $user = auth_admin()->user();
             if (empty($arguments)) {

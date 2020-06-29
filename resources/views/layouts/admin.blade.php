@@ -9,7 +9,7 @@
 
     <title>{{ config('app.name', 'Administry') }} - @yield('title')</title>
 
-    <link href="{{ asset(mix('app.css', 'vendor/adminpack')) }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset(mix('app.css', 'vendor/admin')) }}" rel="stylesheet" type="text/css" />
 </head>
 
 <body class="sb-nav-fixed">
@@ -66,7 +66,7 @@
 
     </div> <!-- /.layoutSidenav_content -->
 
-    <script src="{{ asset(mix('app.js', 'vendor/adminpack')) }}"></script>
+    <script src="{{ asset(mix('app.js', 'vendor/admin')) }}"></script>
     <script>
         jQuery(document).ready(function ($) {
             @stack('js')
