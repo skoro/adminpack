@@ -48,9 +48,14 @@ class AdminServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../resources/views' => resource_path('views/vendor/admin'),
             ], 'adminpack-views');
+
             $this->publishes([
                 __DIR__ . '/../public' => public_path('vendor/adminpack'),
             ], 'adminpack-assets');
+
+            $this->publishes([
+                __DIR__ . '/../config/admin.php' => config_path('admin.php'),
+            ], 'adminpack-config');
         }
     }
 
@@ -132,7 +137,7 @@ class AdminServiceProvider extends ServiceProvider
     {
         return [
             'namespace' => 'Skoro\AdminPack\Http\Controllers',
-            'prefix' => 'admin', // TODO: configuration
+            'prefix' => config('admin.path', 'admin'),
             'middleware' => 'web',
         ];
     }
