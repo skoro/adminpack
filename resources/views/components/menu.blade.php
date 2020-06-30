@@ -22,7 +22,7 @@
     @endif
 </a>
 @if ($hasChildren)
-<div id="sidebarMenu-{{ $menuId }}" class="collapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+<div id="sidebarMenu-{{ $menuId }}" class="sidebar-submenu collapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
     <nav class="sb-sidenav-menu-nested nav">
         {{ $slot }}
     </nav>
