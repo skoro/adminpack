@@ -53,12 +53,7 @@
             <div class="container-fluid">
                 @section('footer')
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2019</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
+                        <div class="text-muted">&copy; Company {{ date('Y') }}</div>
                     </div>
                 @show
             </div>
