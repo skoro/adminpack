@@ -46,46 +46,28 @@
                     <div class="sb-sidenav-menu-heading">
                         {{ __('System') }}
                     </div>
-                    
+
                     @admincanany(['create', 'viewAny', 'manageRoles'])
-                    <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUses">
-                        <div class="sb-nav-link-icon">
-                            <x-admin-icon icon="people-fill"/>
-                        </div>
-                        {{ __('Users') }}
-                        <div class="sb-sidenav-collapse-arrow">&#9662;</div>
-                    </a>
-                    <div id="collapseUsers" class="collapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
+                        <x-admin-menu :title="__('Users')" icon="people-fill">
 
                             @admincan('create')
-                                <a href="{{ route('admin.user.create') }}" class="nav-link">
-                                    {{ __('New User') }}
-                                </a>
+                                <x-admin-submenu :title="__('New User')" :url="route('admin.user.create')"/>
                             @endadmincan
 
                             @admincan('viewAny')
-                                <a href="{{ route('admin.users') }}" class="nav-link">
-                                    {{ __('List') }}
-                                </a>
+                                <x-admin-submenu :title="__('List')" :url="route('admin.users')"/>
                             @endadmincan
 
                             @admincan('manageRoles')
-                                <a href="{{ route('admin.roles') }}" class="nav-link">
-                                    {{ __('Roles') }}
-                                </a>
+                                <x-admin-submenu :title="__('Roles')" :url="route('admin.roles')"/>
                             @endadmincan
-                        </nav>
-                    </div>
+                            
+                        </x-admin-menu>
                     @endadmincanany
+                    
 
                     @admincan('manageOptions')
-                    <a class="nav-link" href="{{ route('admin.options') }}">
-                        <div class="sb-nav-link-icon">
-                            <x-admin-icon icon="toggles"/>
-                        </div>
-                        {{ __('Options') }}
-                    </a>
+                        <x-admin-menu :title="__('Options')" icon="toggles" :url="route('admin.options')"/>
                     @endadmincan
 
                 </div>
