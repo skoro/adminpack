@@ -122,6 +122,8 @@ class AdminServiceProvider extends ServiceProvider
             View\Components\FormActions::class,
             View\Components\FormRow::class,
             View\Components\Icon::class,
+            View\Components\Menu::class,
+            View\Components\Submenu::class,
         ]);
     }
 
