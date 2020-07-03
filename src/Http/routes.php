@@ -15,6 +15,7 @@ Route::middleware('auth_admin:admin')->group(function () {
 
     Route::get('users', 'UserController@index')->name('admin.users');
     Route::view('user/profile', 'admin::users.profile')->name('admin.user.profile');
+    Route::put('user/profile', 'UserController@updateProfile')->name('admin.user.updateProfile');
     Route::get('users/data', 'UserController@data')->name('admin.users.data');
     Route::get('user/create', 'UserController@create')->name('admin.user.create');
     Route::post('user/create', 'UserController@store')->name('admin.user.store');
