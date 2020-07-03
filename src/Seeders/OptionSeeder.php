@@ -14,8 +14,6 @@ class OptionSeeder extends Seeder
     public function run()
     {
         option([
-            'user_register_enable' => true,
-            'user_default_role' => 1,
             'user_password_min' => 6,
         ]);
     }

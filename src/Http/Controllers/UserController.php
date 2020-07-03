@@ -122,15 +122,28 @@ class UserController extends AdminController
     {
         $updateUser->update($user, $request->getUserDto());
         
-        if (auth_admin()->id() == $user->id) {
-            toast(__('Your profile has been updated.'));
-        } else {
-            toast(__('User ":user" has been updated.', [
-                'user' => $user->name,
-            ]));
-        }
+        toast(__('User ":user" has been updated.', [
+            'user' => $user->name,
+        ]));
 
         return $this->redirectToList();
+    }
+
+    /**
+     * Update the user profile.
+     *
+     * @param UserRequest $request
+     * @param User        $user
+     * @return \Illuminate\Http\Response
+     */
+    public function updateProfile(UserRequest $request, UpdateUserService $updateUser)
+    {
+        $user = auth_admin()->user();
+        $updateUser->profile($user, $request->getUserDto());
+
+        toast(__('Your profile has been updated.'));
+
+        return redirect()->route('admin.user.profile');
     }
 
     /**

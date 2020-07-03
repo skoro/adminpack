@@ -1,8 +1,7 @@
 @php
 /**
  * @param \Skoro\AdminPack\Models\Role $role The role.
- * @param bool   $canDelete  Can the role be deleted?
- * @param string $popover    The explanation about why the role cannot be deleted.
+ * @param bool $canDelete  Can the role be deleted?
  */
 @endphp
 
@@ -34,7 +33,7 @@
                         data-toggle="popover"
                         data-container="body"
                         data-placement="left"
-                        data-content="{{ __($popover) }}"
+                        data-content="{{ __('This role belongs to users and cannot be deleted.') }}"
                     >
                         {{ __('Delete') }}
                     </button>

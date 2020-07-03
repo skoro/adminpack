@@ -1,9 +1,3 @@
-@php
-/**
- * @param int $defaultRole The default role ID for user registration.
- */
-$defaultRole = option('user_default_role');
-@endphp
 @extends('admin::layouts.admin')
 
 @section('title', __('Roles'))
@@ -29,20 +23,6 @@ $defaultRole = option('user_default_role');
                         <a href="{{ route('admin.role.edit', $role) }}" class="text-decoration-none">
                             {{ $role->name }}
                         </a>
-                        @if ($defaultRole == $role->id)
-                            <x-admin-icon
-                                id="defaultRole"
-                                icon="star-fill"
-                                class="text-warning"
-                                data-toggle="popover"
-                                data-placement="right"
-                                data-content="{{ __('Default role for the registration.') }}"
-                            >
-                            </x-admin-icon>
-                            @push('js')
-                                $('#defaultRole').popover();
-                            @endpush
-                        @endif
                     </td>
                     <td>
                         <ul class="list-unstyled">

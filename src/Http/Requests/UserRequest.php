@@ -32,23 +32,21 @@ class UserRequest extends FormRequest
      */
     public function rules(UserValidationRules $rules)
     {
-        switch ($this->method()) {
-            case 'POST':
-                /**
-                 * POST method is for both user registration and
-                 * for user creation by admin.
-                 * Choose appropriate rules by the current request route.
-                 */
-                return $this->routeIs('admin.user.store')
-                    ? $rules->create()
-                    : $rules->register();
-
-            // Updating the user.
-            case 'PUT':
-                return $rules->update($this->user);
+        // New user.
+        if ($this->routeIs('admin.user.store')) {
+            return $rules->create();
         }
-
-        throw new RuntimeException('No user validation rules for method: ' . $this->method());
+        // Update existing user.
+        elseif ($this->routeIs('admin.user.update')) {
+            return $rules->update($this->route('user'));
+        }
+        // Update the user profile.
+        elseif ($this->routeIs('admin.user.updateProfile')) {
+            return $rules->profile(auth_admin()->user());
+        }
+        else {
+            throw new RuntimeException('No validation rules for route.');
+        }
     }
 
     /**

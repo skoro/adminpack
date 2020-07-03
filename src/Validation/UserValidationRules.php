@@ -18,13 +18,14 @@ class UserValidationRules
         return [
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'email', 'string', 'max:255'],
+            'password' => ['string', 'min:' . option('user_password_min', 6), 'confirmed'],
         ];
     }
 
     /**
-     * Validation rules for registration.
+     * Validation rules for the user creation.
      */
-    public function register(): array
+    public function create(): array
     {
         $rules = $this->default();
 
@@ -34,27 +35,9 @@ class UserValidationRules
         $rules['email'][] = 'unique:admin_users';
 
         /**
-         * Password rule.
+         * Password is required for creating a new user.
          */
-        $rules['password'] = [
-            'required',
-            'string',
-            'min:' . option('user_password_min', 6),
-            'confirmed',
-        ];
-
-        return $rules;
-    }
-
-    /**
-     * Validation rules for the user creation.
-     */
-    public function create(): array
-    {
-        /**
-         * Rule set is as for register and status and role.
-         */
-        $rules = $this->register();
+        array_unshift($rules['password'], 'required');
 
         return array_merge(
             $rules,
@@ -65,10 +48,28 @@ class UserValidationRules
 
     /**
      * Validation rules for updating user.
-     *
-     * @param \App\Models\User $user The updating user.
      */
     public function update(User $user): array
+    {
+        return array_merge(
+            $this->userRules($user),
+            $this->getStatusRule(),
+            $this->getRoleRule()
+        );
+    }
+
+    /**
+     * Validation rules for updating the user profile.
+     */
+    public function profile(User $user): array
+    {
+        return $this->userRules($user);
+    }
+
+    /**
+     * Minimum set of rules for the existing user.
+     */
+    protected function userRules(User $user): array
     {
         $rules = $this->default();
 
@@ -80,18 +81,9 @@ class UserValidationRules
         /**
          * Password is optional during updating the user.
          */
-        $rules['password'] = [
-            'nullable',
-            'string',
-            'min:' . option('user_password_min', 6),
-            'confirmed',
-        ];
+        array_unshift($rules['password'], 'nullable');
 
-        return array_merge(
-            $rules,
-            $this->getStatusRule(),
-            $this->getRoleRule()
-        );
+        return $rules;
     }
 
     /**

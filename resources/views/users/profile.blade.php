@@ -11,7 +11,7 @@ $user = auth_admin()->user();
 @section('subTitle', $user->name)
 
 @section('content')
-    <form action="{{ route('admin.user.update', $user) }}" method="POST">
+    <form action="{{ route('admin.user.updateProfile', $user) }}" method="POST">
         @csrf
         @method('PUT')
 

@@ -21,29 +21,6 @@ class OptionElementSeeder extends Seeder
             'name' => 'manage options',
         ])->firstOrFail();
 
-        $roles = roles()->pluck('name', 'id')->toArray();
-
-        DB::table('admin_option_elements')->insert([
-            'option_id' => Option::where('key', 'user_register_enable')->first()->id,
-            'perm_id' => $perm->id,
-            'label' => 'User registration',
-            'description' => 'When disabled only user with "user: create" permission can register a new user.',
-            'group' => 'User',
-            'widget' => 'checkbox',
-            'validators' => 'required|bool',
-            'priority' => 0,
-        ]);
-        DB::table('admin_option_elements')->insert([
-            'option_id' => Option::where('key', 'user_default_role')->first()->id,
-            'perm_id' => $perm->id,
-            'label' => 'Default role',
-            'description' => 'Newly registered users are attached to this role. This option is actual only if user registration is enabled.',
-            'group' => 'User',
-            'values' => json_encode($roles),
-            'widget' => 'select',
-            'validators' => 'required|int|exists:admin_roles,id',
-            'priority' => 0,
-        ]);
         DB::table('admin_option_elements')->insert([
             'option_id' => Option::where('key', 'user_password_min')->first()->id,
             'perm_id' => $perm->id,

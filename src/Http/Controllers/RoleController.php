@@ -64,23 +64,11 @@ class RoleController extends AdminController
      */
     public function edit(Role $role)
     {
-        /** @var int $defaultRole */
-        $defaultRole = option('user_default_role');
-
-        $canDelete = ($role->users()->count() == 0) && ($defaultRole != $role->id);
-
-        if (! $canDelete) {
-            if ($defaultRole == $role->id) {
-                $popover = 'This role is used for the user registration and cannot be deleted.';
-            } else {
-                $popover = 'This role belongs to users and cannot be deleted.';
-            }
-        }
+        $canDelete = $role->users()->count() == 0;
 
         return view('admin::roles.edit', [
             'role' => $role,
             'canDelete' => $canDelete,
-            'popover' => $popover ?? '',
         ]);
     }
 
