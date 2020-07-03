@@ -15,7 +15,9 @@ $user = auth_admin()->user();
         @csrf
         @method('PUT')
 
-        @include('admin::users._edit-form')
+        @include('admin::users._edit-form', [
+            'hide' => ['role', 'status'],
+        ])
 
         <x-admin-form-actions/>
         
