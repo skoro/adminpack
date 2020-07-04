@@ -25,7 +25,7 @@ class OptionElementSeeder extends Seeder
             'option_id' => Option::where('key', 'user_password_min')->first()->id,
             'perm_id' => $perm->id,
             'label' => 'Minimum password length',
-            'description' => 'This option sets the limit of the user minimum password length and affects to the registration and user creation forms.',
+            'description' => 'This option sets the limit of the user minimum password length and affects to the user creation form.',
             'group' => 'User',
             'widget' => 'input',
             'validators' => 'required|int|min:4|max:100',
