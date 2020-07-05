@@ -1,3 +1,8 @@
+@php
+/**
+ * @param string $login_name
+ */
+@endphp
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -23,18 +28,18 @@
             {{ __('Admin Login') }}
         </h1>
         
-        <label for="inputEmail" class="sr-only">
-            {{ __('Email') }}
+        <label for="inputLogin" class="sr-only">
+            {{ __(ucfirst($login_name)) }}
         </label>
 
         <input
-            type="email"
-            id="inputEmail"
-            class="form-control @error('email') is-invalid @enderror"
-            placeholder="{{ __('Email') }}"
-            name="email"
-            value="{{ old('email') }}"
-            autocomplete="email"
+            type="{{ $login_name == 'email' ? 'email' : 'text' }}"
+            id="inputLogin"
+            class="form-control login-name @error($login_name) is-invalid @enderror"
+            placeholder="{{ __(ucfirst($login_name)) }}"
+            name="{{ $login_name }}"
+            value="{{ old($login_name) }}"
+            autocomplete="{{ $login_name }}"
             required
             autofocus
         >
