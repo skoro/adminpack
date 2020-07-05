@@ -15,6 +15,7 @@ class OptionSeeder extends Seeder
     {
         option([
             'user_password_min' => 6,
+            'user_login_name' => 'name',
         ]);
     }
 }
