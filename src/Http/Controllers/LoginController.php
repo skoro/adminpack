@@ -38,7 +38,9 @@ class LoginController extends AdminController
      */
     public function showLoginForm()
     {
-        return view('admin::login');
+        return view('admin::login', [
+            'login_name' => option('user_login_name', 'name'),
+        ]);
     }
 
     /**
@@ -57,5 +59,13 @@ class LoginController extends AdminController
     protected function redirectTo(): string
     {
         return route('admin.home');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function username()
+    {
+        return option('user_login_name', 'name');
     }
 }
