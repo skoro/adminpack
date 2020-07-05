@@ -16,12 +16,16 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
+        $this->withoutMix();
+
         $this->loadMigrationsFrom([
             '--database' => 'testing',
             '--path' => dirname(__DIR__) . '/database/migrations',
         ]);
 
         $this->withFactories(dirname(__DIR__) . '/database/factories');
+
+        $this->artisan('admin:init')->run();
     }
 
     /**
@@ -33,6 +37,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function getEnvironmentSetUp($app)
     {
+        $app['config']->set('admin.path', 'admin');
     }
 
     protected function getPackageProviders($app)
