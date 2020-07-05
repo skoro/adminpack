@@ -22,6 +22,7 @@ Option::set(['opt1' => 'value1', 'opt2' => 'value2']);
 |Опция|Значение по-умолчанию|Описание|
 |-----|---------------------|--------|
 |user_password_min|(int) 6|Минимальная длина пароля при создании пользователя.|
+|user_login_name  |name   |Предпочтительный метод логина пользователей: по имени (name) или по email.|
 
 Страница опций
 ==============
@@ -38,9 +39,9 @@ Option::set(['opt1' => 'value1', 'opt2' => 'value2']);
 |label       |Заголовок элемента.|
 |description |Описание элемента.|
 |group       |Название вкладки в которой будет расположен элемент.|
-|values      |Ограничить выбор только указанными значениями, используется для виджета select, хранится в виде JSON.|
+|values      |Ограничить выбор только указанными значениями, используется для виджетов select, radiolist, хранится в виде JSON.|
 |validators  |[Валидаторы](https://laravel.com/docs/7.x/validation#available-validation-rules)|
-|widget      |Виджет элемента: checkbox, input, select.|
+|widget      |Виджет элемента: checkbox, input, select, radiolist.|
 |priority    |Приоритет, чем меньше, тем выше будет расположен элемент.|
 
 Пример добавления элементов находится в файле `/src/Seeders/OptionElementSeeder.php`.
