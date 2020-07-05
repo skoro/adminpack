@@ -30,6 +30,11 @@ class UserValidationRules
         $rules = $this->default();
 
         /**
+         * The user name must be globally unique.
+         */
+        $rules['name'][] = 'unique:admin_users';
+
+        /**
          * The email must be globally unique.
          */
         $rules['email'][] = 'unique:admin_users';
@@ -74,7 +79,12 @@ class UserValidationRules
         $rules = $this->default();
 
         /**
-         * Email must be unique but must be skipped the current user.
+         * The username must be unique but must be ignored for the current user.
+         */
+        $rules['name'][] = Rule::unique('admin_users')->ignore($user);
+
+        /**
+         * Email must be unique but must be ignored for the current user.
          */
         $rules['email'][] = Rule::unique('admin_users')->ignore($user);
 
