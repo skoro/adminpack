@@ -81,6 +81,25 @@ $groups = $optionElRepo->groups();
                                         @endforeach
                                     </select>
                                     @break
+
+                                @case('radiolist')
+                                    @foreach ($element->values as $value => $label)
+                                        <div class="custom-control custom-radio">
+                                            <input
+                                                type="radio"
+                                                id="option{{ $element->id }}-{{ $value }}"
+                                                name="{{ $element->key() }}"
+                                                class="custom-control-input"
+                                                value="{{ $value }}"
+                                                @if (old($element->key(), $element->value()) == $value) checked @endif
+                                            >
+                                            <label class="custom-control-label" for="option{{ $element->id }}-{{ $value }}">
+                                                {{ $label }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                    @break
+
                             @endswitch
 
                             @if ($element->description)
