@@ -2,8 +2,10 @@
 /**
  * @param \Skoro\AdminPack\Models\User|null $user
  * @param string[] $hide The list of fields that need to hide during rendering view.
+ * @param string   $login_name
  */
 $hide = $hide ?? [];
+$login_name = option('user_login_name', 'name');
 @endphp
 
 @unless (in_array('name', $hide))
@@ -16,6 +18,7 @@ $hide = $hide ?? [];
             required
             autofocus
         >
+        @includeWhen($login_name == 'name', 'admin::users._field-login-text')
     </x-admin-form-row>
 @endunless
 
@@ -28,6 +31,7 @@ $hide = $hide ?? [];
             value="{{ old('email', optional($user)->email) }}"
             required
         >
+        @includeWhen($login_name == 'email', 'admin::users._field-login-text')
     </x-admin-form-row>
 @endunless
 
