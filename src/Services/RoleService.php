@@ -17,8 +17,8 @@ class RoleService
      * Creates a new role.
      *
      * @param string $name        The role name.
-     * @param array  $permissions The permissions.
-     * @param User   $createdBy The user which is created the role.
+     * @param int[]  $permissions The list of permission IDs.
+     * @param User   $createdBy   The user that is created the role.
      */
     public function create(string $name, array $permissions, User $createdBy): Role
     {
@@ -34,9 +34,9 @@ class RoleService
      * Updates the role.
      *
      * @param Role   $role        The role to update.
-     * @param string $name        The role name.
-     * @param array  $permissions The permissions.
-     * @param User   $updatedBy   The user which is updated the role.
+     * @param string $name        The new role name.
+     * @param int[]  $permissions The list of permission IDs.
+     * @param User   $updatedBy   The user that is updated the role.
      */
     public function update(Role $role, string $name, array $permissions, User $updatedBy): Role
     {
@@ -51,7 +51,7 @@ class RoleService
      * Deletes the role.
      *
      * @param Role $role       The role to delete.
-     * @param User $deletedBy  The user which is deleted the role.
+     * @param User $deletedBy  The user that is deleted the role.
      */
     public function delete(Role $role, User $deletedBy): bool
     {
@@ -65,6 +65,10 @@ class RoleService
 
     /**
      * Saves the role and sync permissions.
+     *
+     * @param Role   $role        The role model to save.
+     * @param string $name        The new role name.
+     * @param int[]  $permissions The list of permission IDs.
      */
     protected function saveRole(Role $role, string $name, array $permissions): void
     {
