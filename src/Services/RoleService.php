@@ -54,12 +54,17 @@ class RoleService
      * @param Role $role       The role to delete.
      * @param User $deletedBy  The user which is deleted the role.
      *
-     * @throws \RuntimeException When role cannot be deleted because it's the default registration role.
+     * @throws RuntimeException When role cannot be deleted because of users.
      */
     public function delete(Role $role, User $deletedBy): bool
     {
         if (option('user_default_role') == $role->id) {
             throw new RuntimeException('Cannot delete the default registration role.');
+        }
+
+        $users = $role->users()->count();
+        if ($users > 0) {
+            throw new RuntimeException('Role is used by users and cannot be deleted.');
         }
 
         $status = $role->delete();
@@ -72,9 +77,14 @@ class RoleService
 
     /**
      * Saves the role and sync permissions.
+     *
+     * @throws RuntimeException When the permissions list is empty.
      */
     protected function saveRole(Role $role, string $name, array $permissions): void
     {
+        if (empty($permissions)) {
+            throw new RuntimeException('Permissions list cannot be empty.');
+        }
         $role->name = $name;
         $role->saveOrFail();
         $role->permissions()->sync($permissions);
