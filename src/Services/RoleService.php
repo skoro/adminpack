@@ -7,7 +7,6 @@ use Skoro\AdminPack\Events\RoleDeletedEvent;
 use Skoro\AdminPack\Events\RoleUpdatedEvent;
 use Skoro\AdminPack\Models\Role;
 use Skoro\AdminPack\Models\User;
-use RuntimeException;
 
 /**
  * Role create/update/delete service.
@@ -53,15 +52,9 @@ class RoleService
      *
      * @param Role $role       The role to delete.
      * @param User $deletedBy  The user which is deleted the role.
-     *
-     * @throws \RuntimeException When role cannot be deleted because it's the default registration role.
      */
     public function delete(Role $role, User $deletedBy): bool
     {
-        if (option('user_default_role') == $role->id) {
-            throw new RuntimeException('Cannot delete the default registration role.');
-        }
-
         $status = $role->delete();
         if ($status) {
             event(new RoleDeletedEvent($deletedBy, $role));
