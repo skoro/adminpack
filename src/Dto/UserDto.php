@@ -2,6 +2,7 @@
 
 namespace Skoro\AdminPack\Dto;
 
+use RuntimeException;
 use Skoro\AdminPack\Models\User;
 
 /**
@@ -20,11 +21,17 @@ class UserDto
 
     public function getEmail(): string
     {
+        if (empty($this->data['email'])) {
+            throw new RuntimeException('Cannot get user email.');
+        }
         return $this->data['email'];
     }
 
     public function getName(): string
     {
+        if (empty($this->data['name'])) {
+            throw new RuntimeException('Cannot get user name.');
+        }
         return $this->data['name'];
     }
 
