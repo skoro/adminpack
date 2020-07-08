@@ -2,6 +2,7 @@
 
 namespace Skoro\AdminPack\Tests\Feature;
 
+use Skoro\AdminPack\Models\User;
 use Skoro\AdminPack\Tests\TestCase;
 
 class LoginFormTest extends TestCase
@@ -36,5 +37,25 @@ class LoginFormTest extends TestCase
         $this->get('/admin/login')
              ->assertSee('Email')
              ->assertSee('Password');
+    }
+
+    /** @test */
+    public function auth_cannot_see_login()
+    {
+        $user = factory(User::class)->create([
+            'status' => true,
+        ]);
+        $this->loginToAdmin($user)->get('/admin/login')
+            ->assertRedirect(route('admin.home'));
+    }
+
+    /** @test */
+    public function only_users_with_active_status_can_login()
+    {
+        $user = factory(User::class)->create([
+            'status' => false,
+        ]);
+        $this->loginToAdmin($user)->get(route('admin.home'))
+            ->assertRedirect('/admin/login');
     }
 }
