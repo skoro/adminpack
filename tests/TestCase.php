@@ -2,6 +2,7 @@
 
 namespace Skoro\AdminPack\Tests;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Skoro\AdminPack\AdminServiceProvider;
 
@@ -45,5 +46,15 @@ abstract class TestCase extends BaseTestCase
         return [
             AdminServiceProvider::class,
         ];
+    }
+
+    /**
+     * Acting as 'admin' guard.
+     *
+     * @return $this
+     */
+    public function loginToAdmin(Authenticatable $user)
+    {
+        return $this->actingAs($user, 'admin');
     }
 }
