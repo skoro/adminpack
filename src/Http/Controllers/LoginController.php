@@ -4,6 +4,7 @@ namespace Skoro\AdminPack\Http\Controllers;
 
 use Skoro\AdminPack\Http\Controllers\AdminController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends AdminController
@@ -67,5 +68,23 @@ class LoginController extends AdminController
     public function username()
     {
         return option('user_login_name', 'name');
+    }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        $credentials = $request->only($this->username(), 'password');
+
+        /**
+         * Only active users are allowed.
+         */
+        $credentials['status'] = true;
+
+        return $credentials;
     }
 }
