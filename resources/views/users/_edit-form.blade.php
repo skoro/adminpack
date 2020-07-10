@@ -59,6 +59,11 @@ $login_name = option('user_login_name', 'name');
                     autocomplete="new-password"
                     @empty(optional($user)->id) required @endif
                 >
+                <small class="form-text text-muted">
+                    {{ __('Minimum password length is :min characters.', [
+                        'min' => option('user_password_min'),
+                    ]) }}
+                </small>
                 @error('password')
                     <div class="invalid-feedback">
                         {{ $message }}
