@@ -17,6 +17,7 @@
 </head>
 
 <body class="text-center">
+
     <form class="form-signin" method="POST" action="{{ route('admin.login') }}">
         @csrf
 
@@ -27,7 +28,9 @@
         <h1 class="h3 mb-3 font-weight-normal">
             {{ __('Admin Login') }}
         </h1>
-        
+
+        @includeWhen(session()->has('alerts'), 'admin::partials.alerts')
+
         <label for="inputLogin" class="sr-only">
             {{ __(ucfirst($login_name)) }}
         </label>

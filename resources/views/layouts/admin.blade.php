@@ -32,11 +32,7 @@
                     @endif
                 </h1>
 
-                @foreach (session()->get('alerts', []) as $alert)
-                    <x-admin-alert :type="$alert['type']" :close="$alert['close']">
-                        {{ $alert['message'] }}
-                    </x-admin-alert>
-                @endforeach
+                @includeWhen(session()->has('alerts'), 'admin::partials.alerts')
 
                 <ol class="breadcrumb mb-4">
                     @section('breadcrumbs')

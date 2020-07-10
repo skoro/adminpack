@@ -3,9 +3,12 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Skoro\AdminPack\Support\HasSqliteConnection;
 
 class CreateAdminRolesTable extends Migration
 {
+    use HasSqliteConnection;
+
     /**
      * Run the migrations.
      *
@@ -39,12 +42,25 @@ class CreateAdminRolesTable extends Migration
         });
 
         Schema::table('admin_users', function (Blueprint $table) {
-            // FIXME: doesn't work with SQLite driver.
-            $table->unsignedBigInteger('role_id')->after('name');
-            $table->foreign('role_id')
-                  ->references('id')
-                  ->on('admin_roles')
-                  ->onDelete('RESTRICT');
+            $column = $table->unsignedBigInteger('role_id');
+            if ($this->isSqlite()) {
+                /**
+                 * SQLite requires default column value for ALTER TABLE column.
+                 * Also, there is no foreign constrain. This is because 
+                 * the foreign statement doesn't do anything and on the rollback
+                 * this leads to the exception when we try to drop the foreign.
+                 * 
+                 * @link https://sqlite.org/lang_altertable.html
+                 * @see CreateAdminRolesTable::down()
+                 */
+                $column->nullable();
+            } else {
+                $column->after('name');
+                $table->foreign('role_id')
+                      ->references('id')
+                      ->on('admin_roles')
+                      ->onDelete('RESTRICT');
+          }
         });
     }
 
@@ -56,7 +72,12 @@ class CreateAdminRolesTable extends Migration
     public function down()
     {
         Schema::table('admin_users', function (Blueprint $table) {
-            $table->dropForeign('admin_users_role_id_foreign');
+            /**
+             * See above why we don't use the foreign.
+             */
+            if (! $this->isSqlite()) {
+                $table->dropForeign('admin_users_role_id_foreign');
+            }
             $table->dropColumn('role_id');
         });
         Schema::dropIfExists('admin_role_perms');

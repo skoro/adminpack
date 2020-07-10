@@ -108,6 +108,7 @@ class AdminServiceProvider extends ServiceProvider
         // Package middlewares.
         $router->aliasMiddleware('auth_admin', Http\Middleware\Authenticate::class);
         $router->aliasMiddleware('guest_admin', Http\Middleware\RedirectIfAuthenticated::class);
+        $router->aliasMiddleware('active', Http\Middleware\ActiveUser::class);
     }
 
     /**

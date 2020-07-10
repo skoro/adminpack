@@ -7,7 +7,7 @@ Route::middleware('guest_admin')->group(function () {
     Route::post('login', 'LoginController@login')->name('admin.login');
 });
 
-Route::middleware('auth_admin:admin')->group(function () {
+Route::middleware(['auth_admin:admin', 'active'])->group(function () {
     
     Route::post('logout', 'LoginController@logout')->name('admin.logout');
 
