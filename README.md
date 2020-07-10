@@ -3,6 +3,8 @@ Laravel AdminPack
 
 This package provides an admin interface for your project.
 
+![Screenshot](docs/screenshot.png)
+
 Features:
 - Admin user management.
 - Admin user roles.
