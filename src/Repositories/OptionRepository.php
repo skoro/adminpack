@@ -3,6 +3,7 @@
 namespace Skoro\AdminPack\Repositories;
 
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use JsonException;
 
@@ -87,6 +88,14 @@ class OptionRepository
       return $this->queryBuilder()
          ->where('name', $name)
          ->delete();
+   }
+
+   /**
+    * Return a list of the all available options.
+    */
+   public function all(): Collection
+   {
+      return $this->queryBuilder()->get();
    }
 
    /**
