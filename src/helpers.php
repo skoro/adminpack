@@ -89,12 +89,13 @@ if (! function_exists('option')) {
     /**
      * Gets or sets the option value.
      *
-     * When null is passed as the key an instance of the Option model
+     * When null is passed as the key an instance of the OptionRepository
      * is returned. When an array is passed then it will set values.
      * 
      * @param string|array|null $key
      * @param mixed             $default
-     * @return mixed|\App\Models\Option
+     * @return mixed|\Skoro\AdminPack\Repositories\OptionRepository
+     * @throws \JsonException
      */
     function option($key = null, $default = null)
     {
