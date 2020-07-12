@@ -2,8 +2,8 @@
 
 namespace Skoro\AdminPack\Console;
 
-use Skoro\AdminPack\Facades\Option;
 use Illuminate\Console\Command;
+use Skoro\AdminPack\Repositories\OptionRepository;
 
 class OptionDelete extends Command
 {
@@ -12,7 +12,7 @@ class OptionDelete extends Command
      *
      * @var string
      */
-    protected $signature = 'option:delete {key : Option key}';
+    protected $signature = 'option:delete {name : Option name}';
 
     /**
      * The console command description.
@@ -26,14 +26,14 @@ class OptionDelete extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(OptionRepository $optionRepository)
     {
-        $key = $this->argument('key');
+        $name = $this->argument('name');
 
-        if (Option::remove($key)) {
-            $this->info("Option '$key' has been deleted.");
+        if ($optionRepository->delete($name)) {
+            $this->info("Option '$name' has been deleted.");
         } else {
-            $this->error("Couldn't delete option '$key'.");
+            $this->error("Couldn't delete option '$name'.");
         }
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Skoro\AdminPack\Console;
 
-use Skoro\AdminPack\Facades\Option;
 use Illuminate\Console\Command;
 
 class OptionGet extends Command
@@ -12,7 +11,7 @@ class OptionGet extends Command
      *
      * @var string
      */
-    protected $signature = 'option:get {key : Option key}';
+    protected $signature = 'option:get {name : Option name}';
 
     /**
      * The console command description.
@@ -28,11 +27,11 @@ class OptionGet extends Command
      */
     public function handle()
     {
-        $key = $this->argument('key');
-        $value = Option::get($key, null);
+        $name = $this->argument('name');
+        $value = option($name, null);
 
         if ($value === null) {
-            $this->error("Option '$key' value not found.");
+            $this->error("Option '$name' value not found.");
         } else {
             $this->info($value);
         }

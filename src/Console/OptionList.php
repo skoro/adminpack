@@ -2,8 +2,8 @@
 
 namespace Skoro\AdminPack\Console;
 
-use Skoro\AdminPack\Facades\Option;
 use Illuminate\Console\Command;
+use Skoro\AdminPack\Repositories\OptionRepository;
 
 class OptionList extends Command
 {
@@ -26,11 +26,16 @@ class OptionList extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(OptionRepository $optionRepository)
     {
-        $headers = ['Key', 'Value'];
+        $headers = ['Name', 'Value'];
 
-        $options = Option::all(['key', 'value'])->toArray();
+        $options = $optionRepository->all()->map(function ($option) {
+            return [
+                'name' => $option->name,
+                'value' => $option->value,
+            ];
+        });
 
         $this->table($headers, $options);
     }

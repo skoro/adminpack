@@ -2,7 +2,6 @@
 
 namespace Skoro\AdminPack\Console;
 
-use Skoro\AdminPack\Facades\Option;
 use Illuminate\Console\Command;
 
 class OptionSet extends Command
@@ -13,7 +12,7 @@ class OptionSet extends Command
      * @var string
      */
     protected $signature = 'option:set
-                            {key : Option key}
+                            {name : Option name}
                             {value : Option value}';
 
     /**
@@ -30,17 +29,17 @@ class OptionSet extends Command
      */
     public function handle()
     {
-        $key = $this->argument('key');
+        $name = $this->argument('name');
         $value = $this->argument('value');
 
         if ($value === 'true' || $value == 'false') {
             $value = ($value === 'true');
         }
         
-        Option::set($key, $value);
+        option([$name => $value]);
         
-        $value = Option::get($key);
+        $value = option($name);
 
-        $this->info("$key = $value");
+        $this->info("$name = $value");
     }
 }
