@@ -2,13 +2,20 @@
 
 namespace Skoro\AdminPack\Services;
 
-use Skoro\AdminPack\Facades\Option;
+use Skoro\AdminPack\Repositories\OptionRepository;
 
 /**
  * Update Options Service.
  */
 class UpdateOptionsService
 {
+    private OptionRepository $optionRepository;
+
+    public function __construct(OptionRepository $optionRepository)
+    {
+        $this->optionRepository = $optionRepository;
+    }
+
     /**
      * Updates options from the key => value list.
      *
@@ -22,13 +29,13 @@ class UpdateOptionsService
 
         foreach ($values as $key => $value) {
 
-            if (Option::exists($key)) {
+            if ($this->optionRepository->exists($key)) {
             
-                $origValue = Option::get($key);
+                $origValue = $this->optionRepository->get($key);
             
                 if ($value != $origValue) {
                     // TODO: track changes committed by the user !
-                    Option::set($key, $value);
+                    $this->optionRepository->set($key, $value);
                     $changed[] = $key;
                 }
             }
@@ -36,5 +43,10 @@ class UpdateOptionsService
         }
 
         return $changed;
+    }
+
+    public function getOptionRepository(): OptionRepository
+    {
+        return $this->optionRepository;
     }
 }

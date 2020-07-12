@@ -42,20 +42,20 @@ $groups = $optionElRepo->groups();
 
                         <x-admin-form-row
                             :label="$element->widget == 'checkbox' ? '' : $element->label"
-                            :error="$element->key()"
+                            :error="$element->option()"
                         >
 
                             @switch($element->widget)
                                 @case('checkbox')
                                     <div class="form-check">
-                                        <input type="hidden" name={{ $element->key() }} value="0">
+                                        <input type="hidden" name={{ $element->option() }} value="0">
                                         <input
                                             id="optionElement{{ $element->id }}"
-                                            name="{{ $element->key() }}"
+                                            name="{{ $element->option() }}"
                                             type="checkbox"
-                                            class="form-check-input @error($element->key()) is-invalid @enderror"
+                                            class="form-check-input @error($element->option()) is-invalid @enderror"
                                             value="1"
-                                            @if (old($element->key(), $element->value())) checked @endif
+                                            @if (old($element->option(), $element->value())) checked @endif
                                         >
                                         <label for="optionElement{{ $element->id }}" class="form-check-label">
                                             {{ $element->label }}
@@ -66,16 +66,16 @@ $groups = $optionElRepo->groups();
                                 @case('input')
                                     <input
                                         type="text"
-                                        name="{{ $element->key() }}"
-                                        class="form-control @error($element->key()) is-invalid @enderror"
-                                        value="{{ old($element->key(), $element->value()) }}"
+                                        name="{{ $element->option() }}"
+                                        class="form-control @error($element->option()) is-invalid @enderror"
+                                        value="{{ old($element->option(), $element->value()) }}"
                                     >
                                     @break
 
                                 @case('select')
-                                    <select name="{{ $element->key() }}" class="custom-select @error($element->key()) is-invalid @enderror">
+                                    <select name="{{ $element->option() }}" class="custom-select @error($element->option()) is-invalid @enderror">
                                         @foreach ($element->values as $value => $label)
-                                            <option value="{{ $value }}" @if ($value == old($element->key(), $element->value())) selected @endif>
+                                            <option value="{{ $value }}" @if ($value == old($element->option(), $element->value())) selected @endif>
                                                 {{ $label }}
                                             </option>
                                         @endforeach
@@ -88,10 +88,10 @@ $groups = $optionElRepo->groups();
                                             <input
                                                 type="radio"
                                                 id="option{{ $element->id }}-{{ $value }}"
-                                                name="{{ $element->key() }}"
+                                                name="{{ $element->option() }}"
                                                 class="custom-control-input"
                                                 value="{{ $value }}"
-                                                @if (old($element->key(), $element->value()) == $value) checked @endif
+                                                @if (old($element->option(), $element->value()) == $value) checked @endif
                                             >
                                             <label class="custom-control-label" for="option{{ $element->id }}-{{ $value }}">
                                                 {{ $label }}

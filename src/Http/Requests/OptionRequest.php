@@ -39,7 +39,7 @@ class OptionRequest extends FormRequest
 
         /** @var OptionElement $element */
         foreach ($this->elements as $element) {
-            $rules[$element->option->key] = $element->validators;
+            $rules[$element->option()] = $element->validators;
         }
 
         return $rules;
@@ -62,7 +62,7 @@ class OptionRequest extends FormRequest
     {
         $keys = [];
         foreach ($this->elements as $element) {
-            $keys[] = $element->key();
+            $keys[] = $element->option();
         }
         return $this->only($keys);
     }
