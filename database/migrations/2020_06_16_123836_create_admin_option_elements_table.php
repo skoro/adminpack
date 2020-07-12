@@ -15,7 +15,7 @@ class CreateAdminOptionElementsTable extends Migration
     {
         Schema::create('admin_option_elements', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('option_id');
+            $table->string('option_name')->unique();
             $table->unsignedBigInteger('perm_id');
             $table->string('label');
             $table->text('description')->nullable();
@@ -25,8 +25,8 @@ class CreateAdminOptionElementsTable extends Migration
             $table->string('widget');
             $table->integer('priority')->default(0);
 
-            $table->foreign('option_id')
-                ->references('id')
+            $table->foreign('option_name')
+                ->references('name')
                 ->on('admin_options')
                 ->onDelete('RESTRICT');
             $table->foreign('perm_id')

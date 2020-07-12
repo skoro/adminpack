@@ -14,8 +14,7 @@ class CreateAdminOptionsTable extends Migration
     public function up()
     {
         Schema::create('admin_options', function (Blueprint $table) {
-            $table->id();
-            $table->string('key')->unique();
+            $table->string('name')->primary();
             $table->json('value');
         });
     }

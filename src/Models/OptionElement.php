@@ -34,11 +34,11 @@ class OptionElement extends Model
     ];
 
     /**
-     * Returns the option key.
+     * Returns the option name.
      */
-    public function key(): string
+    public function option(): string
     {
-        return $this->option->key;
+        return $this->option_name;
     }
 
     /**
@@ -48,15 +48,7 @@ class OptionElement extends Model
      */
     public function value()
     {
-        return $this->option->value;
-    }
-
-    /**
-     * Option relation.
-     */
-    public function option(): BelongsTo
-    {
-        return $this->belongsTo(Option::class);
+        return option($this->option_name);
     }
 
     /**
