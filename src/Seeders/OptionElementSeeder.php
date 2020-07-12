@@ -4,7 +4,6 @@ namespace Skoro\AdminPack\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Skoro\AdminPack\Models\Option;
 use Skoro\AdminPack\Models\Permission;
 
 class OptionElementSeeder extends Seeder
@@ -22,7 +21,7 @@ class OptionElementSeeder extends Seeder
         ])->firstOrFail();
 
         DB::table('admin_option_elements')->insert([
-            'option_id' => Option::where('key', 'user_login_name')->first()->id,
+            'option_name' => 'user_login_name',
             'perm_id' => $perm->id,
             'label' => 'User login',
             'description' => 'Choose a preferable user login method.',
@@ -34,7 +33,7 @@ class OptionElementSeeder extends Seeder
         ]);
 
         DB::table('admin_option_elements')->insert([
-            'option_id' => Option::where('key', 'user_password_min')->first()->id,
+            'option_name' => 'user_password_min',
             'perm_id' => $perm->id,
             'label' => 'Minimum password length',
             'description' => 'This option sets the limit of the user minimum password length and affects to the user creation form.',
