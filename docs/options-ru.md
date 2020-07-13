@@ -1,10 +1,17 @@
 API
 ===
 Опции хранятся в таблице `admin_options` в виде ключ - значение. Значение опции в таблице хранится в виде JSON.
-Для работы с опциями можно использовать как хелпер `option()` так и фасад `Skoro\AdminPack\Facades\Option`.
+Для работы с опциями можно использовать как хелпер `option()` так и фасад `Skoro\AdminPack\Facades\Option`. Как хелпер так и фасад используют репозиторий
+`Skoro\AdminPack\Repositories\OptionRepository`. Репозиторий обеспечивает следущие методы
+для доступа к опциям:
+- `get(string $name, $default = null)`
+- `set($name, $value = null)`
+- `exists(string $name): bool`
+- `delete(string $name): int`
+- `all(): array`
 
 ### option()
-- `option()` возвращается модель опций `Skoro\AdminPack\Models\Option`.
+- `option()` возвращает репозиторий опций.
 - `option($key, $default)` получить значение опции `$key`, если опция не найдена, то вернуть `$default`.
 - `option(['key' => 'value'])` изменить или создать опцию, если `$key` не найден, то новая опция будет создана.
 
@@ -15,7 +22,8 @@ API
 ```
 Option::set(['opt1' => 'value1', 'opt2' => 'value2']);
 ```
-- `remove(string $key)` удалить опцию.
+- `delete(string $key)` удалить опцию.
+- `all()` получить список названий всех опций.
 
 Стандартные опции
 =================
@@ -34,7 +42,7 @@ Option::set(['opt1' => 'value1', 'opt2' => 'value2']);
 Поля `admin_option_elements`:
 | Поле       | Описание |
 |------------|----------|
-|option_id   |ID опции из таблицы `admin_options` для которой создается элемент.|
+|option_name |Название опции для которой создается элемент.|
 |perm_id     |ID права доступа из таблицы `permissions` (пока не используется).|
 |label       |Заголовок элемента.|
 |description |Описание элемента.|
@@ -55,17 +63,17 @@ artisan option:list
 Показывает все доступные опции и их значения.
 
 ```
-artisan option:get option
+artisan option:get name
 ```
-Показывает значение опции `option`.
+Показывает значение опции `name`.
 
 ```
-artisan option:set option key
+artisan option:set name value
 ```
-Устанавливает новое значение для `option`. При помощи этой команды можно установить только простое значение опции, список, массив установить нельзя. Если в качестве `value` строка true/false то она преобразовывается в соответствующее значение boolean.
+Устанавливает новое значение для опции `name`. При помощи этой команды можно установить только простое значение опции, список, массив установить нельзя. Если в качестве `value` строка *true/false* то она преобразовывается в соответствующее значение *boolean*.
 
 ```
-artisan option:delete option
+artisan option:delete name
 ```
-Удалить опцию `option`.
+Удалить опцию `name`.
 
