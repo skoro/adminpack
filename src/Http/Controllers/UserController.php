@@ -8,7 +8,8 @@ use Skoro\AdminPack\Services\User\CreateUserService;
 use Skoro\AdminPack\Services\User\UpdateUserService;
 use Skoro\AdminPack\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Skoro\AdminPack\Http\Requests\UserIndexRequest;
+use Skoro\AdminPack\Repositories\UsersPaginateQuery;
 
 /**
  * User controller.
@@ -35,41 +36,14 @@ class UserController extends AdminController
     /**
      * Returns a users collection.
      *
-     * @param Request $request
+     * @param UserIndexRequest   $request
+     * @param UsersPaginateQuery $usersPaginateQuery
      */
-    public function data(Request $request)
+    public function data(UserIndexRequest $userIndexRequest, UsersPaginateQuery $usersPaginateQuery)
     {
-        $request->validate([
-            'sort' => 'nullable|in:id,name,email,role,created',
-            'order' => 'required_with:sort|in:asc,desc',
-        ]);
+        $dto = $userIndexRequest->getQueryDto();
+        $users = $usersPaginateQuery->paginate($dto, $userIndexRequest->getLimit());
 
-        // TODO: it should be a repository for sorting ?
-        $sort = $request->sort;
-        if ($sort) {
-            switch ($sort) {
-                case 'created':
-                    $sortField = 'created_at';
-                    break;
-                case 'role':
-                    $sortField = 'admin_roles.name';
-                    break;
-                default:
-                    $sortField = $sort;
-            }
-            $query = User::orderBy($sortField, $request->order);
-            switch ($sort) {
-                case 'role':
-                    $query
-                        ->select('admin_users.*')
-                        ->join('admin_roles', 'admin_roles.id', '=', 'admin_users.role_id');
-                    break;
-            }
-            $users = $query->paginate();
-        } else {
-            $users = User::paginate();
-        }
-        
         return UserResource::collection($users);
     }
 
