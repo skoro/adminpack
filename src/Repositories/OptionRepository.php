@@ -3,7 +3,6 @@
 namespace Skoro\AdminPack\Repositories;
 
 use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use JsonException;
 
@@ -91,11 +90,17 @@ class OptionRepository
    }
 
    /**
-    * Return a list of the all available options.
+    * Return a list of all available option names.
+    *
+    * @return string[]
     */
-   public function all(): Collection
+   public function all(): array
    {
-      return $this->queryBuilder()->get();
+      return $this->queryBuilder()
+         ->select('name')
+         ->get()
+         ->pluck('name')
+         ->toArray();
    }
 
    /**

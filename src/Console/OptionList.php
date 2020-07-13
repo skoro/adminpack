@@ -30,12 +30,12 @@ class OptionList extends Command
     {
         $headers = ['Name', 'Value'];
 
-        $options = $optionRepository->all()->map(function ($option) {
+        $options = array_map(function ($name) use ($optionRepository) {
             return [
-                'name' => $option->name,
-                'value' => $option->value,
+                'name' => $name,
+                'value' => $optionRepository->get($name),
             ];
-        });
+        }, $optionRepository->all());
 
         $this->table($headers, $options);
     }
