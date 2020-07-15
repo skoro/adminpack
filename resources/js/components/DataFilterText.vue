@@ -46,12 +46,16 @@ export default {
         filter: {
             type: String,
             required: true
+        },
+        initialValue: {
+            type: String,
+            default: ''
         }
     },
 
     data() {
         return {
-            text: ''
+            text: this.initialValue
         }
     },
 
