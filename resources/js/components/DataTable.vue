@@ -52,7 +52,8 @@ export default {
             pagination: null,
             loading: true,
             columns: [],
-            filters: {}
+            filters: {},
+            ownFilters: []
         }
     }, // data
 
@@ -68,6 +69,7 @@ export default {
                 child.$on('click', this.onColumnClick);
             }
             else if (tag.startsWith('data-filter-')) {
+                this.ownFilters.push(child);
                 child.$on('click', this.onFilterClick);
             }
         }
@@ -117,14 +119,30 @@ export default {
             const url = this.getUrl(window.location.href);
             window.history.pushState(data, '', url);            
         },
+
+        /**
+         * Get values for sorting and filters from the url.
+         */
         initParams() {
             const url = new URL(window.location.href);
             const params = url.searchParams;
+
+            // Current data page.
             if (params.has('page')) {
                 this.page = params.get('page');
             }
+
+            // Set sort column and its order.
             if (params.has('sort') && params.has('order')) {
                 this.updateColumnOrder(params.get('sort'), params.get('order'));
+            }
+
+            // Fill filter value.
+            const skipKeys = ['page', 'sort', 'order'];
+            for (const [key, value] of params) {
+                if (skipKeys.indexOf(key) == -1) {
+                    this.syncFilter(key, value);
+                }
             }
         },
         updateColumnOrder(name, order) {
@@ -143,6 +161,24 @@ export default {
             this.filters[filter] = value;
             this.pushState();
             await this.getRows();
+        },
+
+        /**
+         * Synchronize child filter component with the specified value.
+         *
+         * @param {string} filter The filter component name.
+         * @param {string} value
+         * @return {bool}
+         */
+        syncFilter(filter, value) {
+            for (const comp of this.ownFilters) {
+                if (comp.filter == filter) {
+                    comp.text = value;
+                    this.filters[filter] = value;
+                    return true;
+                }
+            }
+            return false;
         }
     } // methods
 }
