@@ -1,5 +1,7 @@
 <template>
     <div>
+        <slot name="filters">
+        </slot>
         <table class="table">
             <thead class="thead-light">
                 <slot name="columns" :sort="sort">
@@ -49,19 +51,24 @@ export default {
             page: 1,
             pagination: null,
             loading: true,
-            columns: []
+            columns: [],
+            filters: {}
         }
     }, // data
 
     mounted() {
         for (let child of this.$children) {
-            if (child.$options._componentTag == 'data-column') {
+            const tag = child.$options._componentTag;
+            if (tag == 'data-column') {
                 this.columns.push(child);
                 if (child.order) {
                     this.sort.column = child.name;
                     this.sort.order = child.order;
                 }
                 child.$on('click', this.onColumnClick);
+            }
+            else if (tag.startsWith('data-filter-')) {
+                child.$on('click', this.onFilterClick);
             }
         }
         this.initParams();
@@ -93,6 +100,13 @@ export default {
                 url.searchParams.set('sort', this.sort.column);
                 url.searchParams.set('order', this.sort.order);
             }
+            Object.keys(this.filters).forEach(key => {
+                if (this.filters[key].length) {
+                    url.searchParams.set(key, this.filters[key]);
+                } else {
+                    url.searchParams.delete(key);
+                }
+            });
             return url.toString();
         },
         pushState() {
@@ -122,6 +136,11 @@ export default {
         },
         async onColumnClick(column, order) {
             this.updateColumnOrder(column, order);
+            this.pushState();
+            await this.getRows();
+        },
+        async onFilterClick(filter, value) {
+            this.filters[filter] = value;
             this.pushState();
             await this.getRows();
         }
