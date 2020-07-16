@@ -167,13 +167,13 @@ export default {
          * Synchronize child filter component with the specified value.
          *
          * @param {string} filter The filter component name.
-         * @param {string} value
+         * @param {string} value  The filter value.
          * @return {bool}
          */
         syncFilter(filter, value) {
             for (const comp of this.ownFilters) {
                 if (comp.filter == filter) {
-                    comp.text = value;
+                    comp.value = value;
                     this.filters[filter] = value;
                     return true;
                 }

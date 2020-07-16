@@ -4,7 +4,7 @@
             type="text"
             class="form-control"
             :placeholder="desc"
-            v-model="text"
+            v-model="value"
             @keyup.enter="doClick"
         />
         <div class="input-group-append">
@@ -55,22 +55,22 @@ export default {
 
     data() {
         return {
-            text: this.initialValue
+            value: this.initialValue
         }
     },
 
     computed: {
         isEmptyInput() {
-            return ! this.text.trim().length;
+            return ! this.value.trim().length;
         }
     },
 
     methods: {
         doClick() {
-            this.$emit('click', this.filter, this.text);
+            this.$emit('click', this.filter, this.value);
         },
         doClear() {
-            this.text = '';
+            this.value = '';
             this.doClick();
         }
     }
