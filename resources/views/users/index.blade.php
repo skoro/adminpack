@@ -24,6 +24,9 @@
     <data-table src="{{ route('admin.users.data') }}" class="table-hover table-sm">
         <template v-slot:filters>
             <div class="row table-filters mb-3">
+                <div class="col-md-3">
+                    <data-filter-select filter="role" empty="{{ __('All Roles') }}" :options="{{ roles()->pluck('name', 'id')->toJson() }}"/>
+                </div>
                 <div class="col-md-6">
                     <data-filter-text filter="text" button="{{ __('Search') }}" desc="{{ __('Name or Email...') }}"/>
                 </div>
