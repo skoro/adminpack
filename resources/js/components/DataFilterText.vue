@@ -34,20 +34,36 @@
 export default {
 
     props: {
+        /**
+         * The filter name.
+         * 
+         * This name is used by DataTable in a data request.
+         */
+         filter: {
+            type: String,
+            required: true
+        },
+
+        /**
+         * The filter description in the input placeholder.
+         */
         desc: {
             type: String,
             default: ''
         },
+
+        /**
+         * The action button label. By default, "Search".
+         */
         button: {
             type: String,
             default: 'Search...'
         },
-        // Filter name. It will be used in the data-table to distinct filter parameters.
-        filter: {
-            type: String,
-            required: true
-        },
-        initialValue: {
+        
+        /**
+         * The initial filter value. By default, an empty string.
+         */
+         initialValue: {
             type: String,
             default: ''
         }
@@ -67,7 +83,7 @@ export default {
 
     methods: {
         doClick() {
-            this.$emit('click', this.filter, this.value);
+            this.$emit('filter', this.filter, this.value);
         },
         doClear() {
             this.value = '';
