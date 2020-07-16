@@ -23,12 +23,14 @@ import DataTable from './components/DataTable';
 import DataColumn from './components/DataColumn';
 import DataPagination from './components/DataPagination';
 import DataFilterText from './components/DataFilterText';
+import DataFilterSelect from './components/DataFilterSelect';
 import StatusBadge from './components/StatusBadge';
 
 Vue.component('data-table', DataTable);
 Vue.component('data-column', DataColumn);
 Vue.component('data-pagination', DataPagination);
 Vue.component('data-filter-text', DataFilterText);
+Vue.component('data-filter-select', DataFilterSelect);
 Vue.component('status-badge', StatusBadge);
 
 /**
