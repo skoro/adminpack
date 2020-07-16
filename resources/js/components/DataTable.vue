@@ -70,7 +70,7 @@ export default {
             }
             else if (tag.startsWith('data-filter-')) {
                 this.ownFilters.push(child);
-                child.$on('click', this.onFilterClick);
+                child.$on('filter', this.onFilter);
             }
         }
         this.initParams();
@@ -157,7 +157,14 @@ export default {
             this.pushState();
             await this.getRows();
         },
-        async onFilterClick(filter, value) {
+
+        /**
+         * Event callback when the filter changes.
+         *
+         * @param {string} filter The filter name.
+         * @param {string} value  The filter value.
+         */
+        async onFilter(filter, value) {
             this.filters[filter] = value;
             this.pushState();
             await this.getRows();
