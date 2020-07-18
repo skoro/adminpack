@@ -24,10 +24,20 @@
     <data-table src="{{ route('admin.users.data') }}" class="table-hover table-sm">
         <template v-slot:filters>
             <div class="row table-filters mb-3">
-                <div class="col-md-3">
+                <div class="col-md-2 filter-active">
+                    <data-filter-select
+                        filter="status"
+                        empty="{{ __('All Users') }}"
+                        :options="{{ json_encode([
+                            \Skoro\AdminPack\Models\User::STATUS_ACTIVE => __('Active'),
+                            \Skoro\AdminPack\Models\User::STATUS_DISABLED => __('Disabled')
+                        ]) }}"
+                    />
+                </div>
+                <div class="col-md-3 filter-role">
                     <data-filter-select filter="role" empty="{{ __('All Roles') }}" :options="{{ roles()->pluck('name', 'id')->toJson() }}"/>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 filter-name">
                     <data-filter-text filter="text" button="{{ __('Search') }}" desc="{{ __('Name or Email...') }}"/>
                 </div>
             </div>
