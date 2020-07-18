@@ -58,6 +58,9 @@ export default {
     }, // data
 
     mounted() {
+        /**
+         * Attach callback for data-column and data-filter-* components.
+         */
         for (let child of this.$children) {
             const tag = child.$options._componentTag;
             if (tag == 'data-column') {
@@ -73,11 +76,23 @@ export default {
                 child.$on('filter', this.onFilter);
             }
         }
+
+        /**
+         * Take the table parameters from the current url.
+         */
         this.initParams();
+        /**
+         * Get the data.
+         */
         this.getRows();
+
     }, // mounted
 
     methods: {
+
+        /**
+         * Get the table rows from the remote source.
+         */
         async getRows() {
             this.loading = true;
             try {
@@ -85,16 +100,36 @@ export default {
                 const resp = await axios.get(url);
                 this.rows = resp.data.data;
                 this.pagination = resp.data.meta;
+                /**
+                 * Go to the first page when rowset is empty and we are in the middle
+                 * of the paging. This often occurs between changing the filters.
+                 */
+                if (this.rows.length == 0 && this.page > 1) {
+                    this.page = 1;
+                    this.getRows();
+                }
             } catch (e) {
                 console.log(e);
             }
             this.loading = false;
         },
+
+        /**
+         * Pager callback.
+         *
+         * @param {int} page
+         */
         async onPage(page) {
             this.page = page;
             this.pushState();
             await this.getRows();
         },
+
+        /**
+         * Get the data remote url with query parameters.
+         *
+         * @param {String} base The remote data url without parameters.
+         */
         getUrl(base) {
             const url = new URL(base);
             url.searchParams.set('page', this.page);
@@ -111,6 +146,10 @@ export default {
             });
             return url.toString();
         },
+
+        /**
+         * Update the browser query url parameters.
+         */
         pushState() {
             const data = {
                 page: this.page,
