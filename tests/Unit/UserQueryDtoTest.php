@@ -4,6 +4,7 @@ namespace Skoro\AdminPack\Tests\Feature;
 
 use RuntimeException;
 use Skoro\AdminPack\Dto\UserQueryDto;
+use Skoro\AdminPack\Models\User;
 use Skoro\AdminPack\Tests\TestCase;
 
 class UserQueryDtoTest extends TestCase
@@ -17,7 +18,10 @@ class UserQueryDtoTest extends TestCase
         $this->assertEquals('desc', $dto->getSortOrder());
         $this->assertFalse($dto->hasFindValue());
         $this->assertEmpty($dto->getFindValue());
+        $this->assertFalse($dto->hasRoleId());
         $this->assertEquals(0, $dto->getRoleId());
+        $this->assertFalse($dto->hasStatus());
+        $this->assertEquals(User::STATUS_ACTIVE, $dto->getStatus());
     }
 
     /** @test */
@@ -50,5 +54,13 @@ class UserQueryDtoTest extends TestCase
     {
         $dto = new UserQueryDto(['role' => 'admin']);
         $this->assertEquals(0, $dto->getRoleId());
+    }
+
+    /** @test */
+    public function has_status()
+    {
+        $dto = new UserQueryDto(['status' => User::STATUS_DISABLED]);
+        $this->assertTrue($dto->hasStatus());
+        $this->assertEquals(User::STATUS_DISABLED, $dto->getStatus());
     }
 }

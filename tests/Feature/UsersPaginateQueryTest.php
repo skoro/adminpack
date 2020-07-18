@@ -180,4 +180,32 @@ class UsersPaginateQueryTest extends TestCase
         $this->assertEquals(['find_used', 'find_user_test', 'some_name'],
             collect($users)->pluck('name')->toArray());
     }
+
+    /** @test */
+    public function find_only_disabled()
+    {
+        factory(User::class)->create(['status' => User::STATUS_DISABLED, 'name' => 'foo']);
+        factory(User::class)->create(['status' => User::STATUS_ACTIVE]);
+
+        $users = $this->getPaginate()
+            ->paginate(new UserQueryDto([
+                'status' => User::STATUS_DISABLED,
+            ]))->items();
+
+        $this->assertEquals(['foo'], collect($users)->pluck('name')->toArray());
+    }
+
+    /** @test */
+    public function find_only_active()
+    {
+        factory(User::class)->create(['status' => User::STATUS_DISABLED]);
+        factory(User::class)->create(['status' => User::STATUS_DISABLED]);
+
+        $users = $this->getPaginate()
+            ->paginate(new UserQueryDto([
+                'status' => User::STATUS_ACTIVE,
+            ]))->items();
+
+        $this->assertEquals(['Administrator'], collect($users)->pluck('name')->toArray());
+    }
 }
