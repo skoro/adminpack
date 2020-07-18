@@ -3,6 +3,7 @@
 namespace Skoro\AdminPack\Dto;
 
 use RuntimeException;
+use Skoro\AdminPack\Models\User;
 
 /**
  * User Query DTO.
@@ -47,8 +48,23 @@ class UserQueryDto
         return $this->data['text'] ?? '';
     }
 
+    public function hasRoleId(): bool
+    {
+        return isset($this->data['role']);
+    }
+
     public function getRoleId(): int
     {
-        return isset($this->data['role']) ? (int) $this->data['role'] : 0;
+        return $this->hasRoleId() ? (int) $this->data['role'] : 0;
+    }
+
+    public function hasStatus(): bool
+    {
+        return isset($this->data['status']);
+    }
+
+    public function getStatus(): int
+    {
+        return $this->hasStatus() ? (int) $this->data['status'] : User::STATUS_ACTIVE;
     }
 }

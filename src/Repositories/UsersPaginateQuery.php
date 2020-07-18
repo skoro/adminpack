@@ -26,12 +26,16 @@ class UsersPaginateQuery
             $this->withRoles($query);
         }
 
-        if ($queryDto->getRoleId() > 0) {
+        if ($queryDto->hasRoleId()) {
             $this->findByRoleId($query, $queryDto->getRoleId());
         }
 
         if ($queryDto->hasFindValue()) {
             $this->findByNameOrEmail($query, $queryDto);
+        }
+
+        if ($queryDto->hasStatus()) {
+            $this->findByStatus($query, $queryDto->getStatus());
         }
 
         $query->limit($limit);
@@ -85,5 +89,13 @@ class UsersPaginateQuery
         }
 
         return $sortField;
+    }
+
+    /**
+     * Adds a conditional to find users by the specified status.
+     */
+    protected function findByStatus(Builder $query, int $status)
+    {
+        return $query->where('status', $status);
     }
 }

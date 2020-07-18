@@ -2,6 +2,7 @@
 
 namespace Skoro\AdminPack\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Skoro\AdminPack\Dto\UserQueryDto;
 use Skoro\AdminPack\Models\User;
@@ -36,8 +37,12 @@ class UserIndexRequest extends FormRequest
             'order' => 'required_with:sort|in:asc,desc',
 
             // Find parameters.
-            'text' => 'nullable|string|max:255',
-            'role' => 'nullable|int|exists:admin_roles,id',
+            'text'   => 'nullable|string|max:255',
+            'role'   => 'nullable|int|exists:admin_roles,id',
+            'status' => [
+                'nullable',
+                Rule::in([User::STATUS_ACTIVE, User::STATUS_DISABLED]),
+            ],
 
             'limit' => 'nullable|int|max:100',
         ];
