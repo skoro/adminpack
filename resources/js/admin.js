@@ -19,16 +19,25 @@
     });
 
     // This adds to the submit button a spinner.
-    $('form button[type="submit"]').on('click', function () {
-        var p = $(this).parents('form');
+    $('form button[type="submit"]').on('click', function (event) {
+        var forms = $(this).parents('form');
         // Don't show a spinner if the form's client validation is failed.
-        if (p.length > 0 && !p[0].checkValidity()) {
+        if (forms.length > 0 && !forms[0].checkValidity()) {
             return;
         }
+
+        event.preventDefault();
+
         // Show a spinner.
         $(this)
             .prop('disabled', true)
             .prepend('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+
+        /**
+         * Chrome Browser doesn't send submit() event after 'disabled' property is set.
+         * We must send it manually. Firefox works good.
+         */
+        forms[0].submit();
     });
 
 })(jQuery);
