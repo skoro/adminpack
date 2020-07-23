@@ -2,10 +2,18 @@
 
 namespace Skoro\AdminPack\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Activity model.
+ *
+ * @property int    $id
+ * @property int    $user_id
+ * @property string $event
+ * @property string $message
+ * @property array  $data
+ * @property Carbon $created_at
  */
 class Activity extends Model
 {
