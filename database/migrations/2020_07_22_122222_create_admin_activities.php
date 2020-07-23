@@ -16,14 +16,16 @@ class CreateAdminActivities extends Migration
         Schema::create('admin_activities', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->string('event');
             $table->string('message');
             $table->json('data');
             $table->timestamp('created_at');
 
             $table->index('created_at');
+            $table->index('event');
             $table->foreign('user_id')
                   ->references('id')
-                  ->on('users')
+                  ->on('admin_users')
                   ->onDelete('SET NULL');
         });
     }
