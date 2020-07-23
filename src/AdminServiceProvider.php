@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Skoro\AdminPack\Models\User;
+use Skoro\AdminPack\Observers\ActivityLog;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -39,6 +40,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerCommands();
         $this->registerMiddlewares();
         $this->registerBladeDirectives();
+        $this->enableActivityLog();
     }
 
     /**
@@ -169,5 +171,16 @@ class AdminServiceProvider extends ServiceProvider
             }
             return app(Gate::class)->forUser($user)->any($abilities, $arguments);
         });
+    }
+
+    /**
+     * Sets activity log handler for the admin models.
+     */
+    private function enableActivityLog()
+    {
+        // TODO: may be it better to add an config option for enabling
+        // or disabling activity log ?
+        Models\User::observe(ActivityLog::class);
+        Models\Role::observe(ActivityLog::class);
     }
 }
