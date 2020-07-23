@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Skoro\AdminPack\Support\ReadableName;
 
 /**
  * @property int    $id
@@ -21,7 +22,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class User extends Authenticatable
+class User extends Authenticatable implements ReadableName
 {
     use Notifiable;
 
@@ -94,5 +95,13 @@ class User extends Authenticatable
                 'name' => $permission,
             ])
             ->exists();
+    }
+
+    /**
+     * Returns the username.
+     */
+    public function getName(): string
+    {
+        return 'User: ' . $this->name;
     }
 }
