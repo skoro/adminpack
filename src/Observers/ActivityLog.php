@@ -38,9 +38,9 @@ class ActivityLog
     }
 
     /**
-     * Handle the Model 'deleted' event.
+     * Handle the Model 'deleting' event.
      */
-    public function deleted(Model $model)
+    public function deleting(Model $model)
     {
         $this->createActivityEntry(self::TYPE_DELETED, $model);
     }
