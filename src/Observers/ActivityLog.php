@@ -4,10 +4,19 @@ namespace Skoro\AdminPack\Observers;
 
 use Illuminate\Database\Eloquent\Model;
 use Skoro\AdminPack\Models\Activity;
-use Skoro\AdminPack\Support\ReadableName;
+use Skoro\AdminPack\Support\InstanceDescription;
 
+/**
+ * Activity Log Observer.
+ *
+ * Tracks 'created', 'updated', 'deleted' and 'forceDeleted'
+ * events from the model and creates an entry in the activity log.
+ */
 class ActivityLog
 {
+    /**
+     * Activity types.
+     */
     const TYPE_NEW = 'new';
     const TYPE_UPDATED = 'updated';
     const TYPE_DELETED = 'deleted';
@@ -44,10 +53,17 @@ class ActivityLog
         $this->createActivityEntry(self::TYPE_DELETED, $model);
     }
 
-    protected function createActivityEntry(string $type, Model $model)
+    /**
+     * Creates an activity entry.
+     *
+     * @param string $type  The activity type.
+     * @param Model  $model The observed model.
+     * @return Activity
+     */
+    protected function createActivityEntry(string $type, Model $model): Activity
     {
-        if ($model instanceof ReadableName) {
-            $name = $model->getName();
+        if ($model instanceof InstanceDescription) {
+            $name = $model->getDescription();
         } else {
             $name = get_class($model);
         }
@@ -59,5 +75,7 @@ class ActivityLog
         $activity->data = $model->toArray();
 
         $activity->save();
+
+        return $activity;
     }
 }
