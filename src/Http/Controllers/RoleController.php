@@ -48,8 +48,7 @@ class RoleController extends AdminController
     {
         $role = $this->roleService->create(
             $request->getName(),
-            $request->getPermissions(),
-            auth_admin()->user()
+            $request->getPermissions()
         );
 
         toast(__('Role ":role" has been created.', [
@@ -80,8 +79,7 @@ class RoleController extends AdminController
         $this->roleService->update(
             $role,
             $request->getName(),
-            $request->getPermissions(),
-            auth_admin()->user()
+            $request->getPermissions()
         );
 
         toast(__('Role ":role" has been updated.', [
@@ -97,7 +95,7 @@ class RoleController extends AdminController
     public function destroy(Role $role)
     {
         try{
-            $this->roleService->delete($role, auth_admin()->user());
+            $this->roleService->delete($role);
 
             toast(__('Role ":role" has been deleted.', [
                 'role' => $role->name,
