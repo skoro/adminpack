@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
-use Skoro\AdminPack\Support\ReadableName;
+use Skoro\AdminPack\Support\InstanceDescription;
 
 /**
  * @property int    $id
@@ -22,7 +22,7 @@ use Skoro\AdminPack\Support\ReadableName;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class User extends Authenticatable implements ReadableName
+class User extends Authenticatable implements InstanceDescription
 {
     use Notifiable;
 
@@ -98,9 +98,9 @@ class User extends Authenticatable implements ReadableName
     }
 
     /**
-     * Returns the username.
+     * The user description.
      */
-    public function getName(): string
+    public function getDescription(): string
     {
         return 'User: ' . $this->name;
     }

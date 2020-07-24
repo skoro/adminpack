@@ -5,7 +5,7 @@ namespace Skoro\AdminPack\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Skoro\AdminPack\Support\ReadableName;
+use Skoro\AdminPack\Support\InstanceDescription;
 
 /**
  * Role model.
@@ -15,7 +15,7 @@ use Skoro\AdminPack\Support\ReadableName;
  * @property Permission[] $permissions
  * @property User[]       $users
  */
-class Role extends Model implements ReadableName
+class Role extends Model implements InstanceDescription
 {
     /**
      * The table associated with the model.
@@ -57,9 +57,9 @@ class Role extends Model implements ReadableName
     }
 
     /**
-     * Returns the role name.
+     * The role description.
      */
-    public function getName(): string
+    public function getDescription(): string
     {
         return 'Role: ' . $this->name;
     }
