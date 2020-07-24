@@ -63,4 +63,44 @@ class Role extends Model implements InstanceDescription
     {
         return 'Role: ' . $this->name;
     }
+
+    /**
+     * Synchronizes the Role permissions.
+     *
+     * @param array $permissions The list of permission IDs.
+     */
+    public function syncPermissions(array $permissions)
+    {
+        $changed = $this->permissions()->sync($permissions);
+
+        /**
+         * Make the permissions synchronization visible
+         * to the ActiveLog.
+         *
+         * Every changes among role's permissions lead to
+         * the 'updated' event that catches up by the Activity observer.
+         */
+        if (count($changed['attached']) ||
+            count($changed['updated'])  ||
+            count($changed['detached'])
+        ) {
+            $this->fireModelEvent('updated', false);
+        }
+    }
+
+    /**
+     * Convert the model instance to an array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        /**
+         * Always serialize with permissions.
+         * Those will be visible in the Activity Log.
+         */
+        $this->load('permissions');
+
+        return parent::toArray();
+    }
 }
