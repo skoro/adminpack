@@ -14,12 +14,15 @@ class ActivityResource extends JsonResource
      */
     public function toArray($request)
     {
+        $user = $this->user;
+
         return [
             'created' => $this->created_at->timestamp,
             'created_ago' => $this->created_at->ago(),
             'event' => $this->event,
             'message' => $this->message,
-            'user' => $this->user ? $this->user->name : '?',
+            'user' => $user ? $user->name : '',
+            'user_role' => $user ? $user->role->name : '',
         ];
     }
 }
