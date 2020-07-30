@@ -4,6 +4,7 @@ namespace Skoro\AdminPack\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Activity model.
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $message
  * @property array  $data
  * @property Carbon $created_at
+ * @property User   $user
  */
 class Activity extends Model
 {
@@ -37,4 +39,12 @@ class Activity extends Model
     protected $casts = [
         'data' => 'json',
     ];
+
+    /**
+     * 'user' relation.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
