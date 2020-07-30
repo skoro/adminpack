@@ -56,7 +56,7 @@ class UsersPaginateQuery
     }
 
     /**
-     * Joins the role table to allow sorting roles.
+     * Joins the role table to allow sorting by a role name.
      */
     protected function withRoles(Builder $query)
     {
