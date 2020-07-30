@@ -3,6 +3,7 @@
 namespace Skoro\AdminPack\Repositories;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Skoro\AdminPack\Dto\ActivityQueryDto;
 use Skoro\AdminPack\Models\Activity;
 
@@ -20,6 +21,10 @@ class ActivityPaginateQuery
             $this->mapToSortField($queryDto),
             $queryDto->getSortOrder()
         );
+
+        if ($queryDto->getSortField() == 'user') {
+            $this->withUsers($query);
+        }
 
         $query->limit($limit);
 
@@ -42,5 +47,15 @@ class ActivityPaginateQuery
         }
 
         return $sortField;
+    }
+
+    /**
+     * Joins the users table to allow sorting by a user.
+     */
+    protected function withUsers(Builder $query)
+    {
+        return $query
+            ->select('admin_activities.*')
+            ->leftJoin('admin_users', 'admin_users.id', '=', 'admin_activities.user_id');
     }
 }
