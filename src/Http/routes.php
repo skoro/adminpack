@@ -32,4 +32,7 @@ Route::middleware(['auth_admin:admin', 'active'])->group(function () {
     
     Route::get('options', 'OptionController@index')->name('admin.options');
     Route::put('options/{group}', 'OptionController@update')->name('admin.options.update');
+
+    Route::get('activity', 'ActivityController@index')->name('admin.activities');
+    Route::get('activities/data', 'ActivityController@data')->name('admin.activities.data');
 });

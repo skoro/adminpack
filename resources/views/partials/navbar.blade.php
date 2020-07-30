@@ -35,8 +35,8 @@
                 <a class="dropdown-item" href="{{ route('admin.user.profile') }}">
                     {{ __('My Profile') }}
                 </a>
-                <a class="dropdown-item" href="#">
-                    Activity Log
+                <a class="dropdown-item" href="{{ route('admin.activities') }}">
+                    {{ __('Activity Log') }}
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('admin.logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
