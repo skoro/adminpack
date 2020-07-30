@@ -11,7 +11,7 @@ use RuntimeException;
  */
 abstract class BaseQueryDto
 {
-    private array $data;
+    protected array $data;
 
     public function __construct(array $data)
     {
