@@ -8,7 +8,7 @@ use Skoro\AdminPack\Services\User\CreateUserService;
 use Skoro\AdminPack\Services\User\UpdateUserService;
 use Skoro\AdminPack\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Skoro\AdminPack\Http\Requests\UserIndexRequest;
+use Skoro\AdminPack\Http\Requests\UserDataRequest;
 use Skoro\AdminPack\Repositories\UsersPaginateQuery;
 
 /**
@@ -36,13 +36,13 @@ class UserController extends AdminController
     /**
      * Returns a users collection.
      *
-     * @param UserIndexRequest   $request
+     * @param UserDataRequest    $request
      * @param UsersPaginateQuery $usersPaginateQuery
      */
-    public function data(UserIndexRequest $userIndexRequest, UsersPaginateQuery $usersPaginateQuery)
+    public function data(UserDataRequest $dataRequest, UsersPaginateQuery $usersPaginateQuery)
     {
-        $dto = $userIndexRequest->getQueryDto();
-        $users = $usersPaginateQuery->paginate($dto, $userIndexRequest->getLimit());
+        $dto = $dataRequest->getQueryDto();
+        $users = $usersPaginateQuery->paginate($dto, $dataRequest->getLimit());
 
         return UserResource::collection($users);
     }

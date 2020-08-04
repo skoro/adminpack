@@ -10,9 +10,9 @@ use Skoro\AdminPack\Models\User;
 /**
  * User Index Request.
  * 
- * This request validates parameters to the users index list.
+ * This request validates parameters for the users data.
  */
-class UserIndexRequest extends FormRequest
+class UserDataRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

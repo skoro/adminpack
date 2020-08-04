@@ -6,11 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 use Skoro\AdminPack\Dto\ActivityQueryDto;
 
 /**
- * Activity Index Request.
+ * Activity Data Request.
  * 
- * This request validates parameters to the activity index list.
+ * This request validates parameters for the activity data.
  */
-class ActivityIndexRequest extends FormRequest
+class ActivityDataRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

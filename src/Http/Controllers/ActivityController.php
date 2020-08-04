@@ -3,7 +3,7 @@
 namespace Skoro\AdminPack\Http\Controllers;
 
 use Skoro\AdminPack\Http\Controllers\AdminController;
-use Skoro\AdminPack\Http\Requests\ActivityIndexRequest;
+use Skoro\AdminPack\Http\Requests\ActivityDataRequest;
 use Skoro\AdminPack\Http\Resources\ActivityResource;
 use Skoro\AdminPack\Repositories\ActivityPaginateQuery;
 
@@ -14,12 +14,10 @@ class ActivityController extends AdminController
         return view('admin::activities.index');
     }
 
-    public function data(
-        ActivityIndexRequest $indexRequest,
-        ActivityPaginateQuery $paginateQuery
-    ) {
-        $dto = $indexRequest->getQueryDto();
-        $limit = $indexRequest->getLimit();
+    public function data(ActivityDataRequest $dataRequest, ActivityPaginateQuery $paginateQuery)
+    {
+        $dto = $dataRequest->getQueryDto();
+        $limit = $dataRequest->getLimit();
         $authUser = auth_admin()->user();
 
         if ($authUser->can('viewAllActivities')) {
