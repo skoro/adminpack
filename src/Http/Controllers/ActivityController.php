@@ -19,7 +19,14 @@ class ActivityController extends AdminController
         ActivityPaginateQuery $paginateQuery
     ) {
         $dto = $indexRequest->getQueryDto();
-        $activities = $paginateQuery->paginate($dto, $indexRequest->getLimit());
+        $limit = $indexRequest->getLimit();
+        $authUser = auth_admin()->user();
+
+        if ($authUser->can('viewAllActivities')) {
+            $activities = $paginateQuery->paginate($dto, $limit);
+        } else {
+            $activities = $paginateQuery->paginateByUser($authUser, $dto, $limit);
+        }
 
         return ActivityResource::collection($activities);
     }

@@ -19,8 +19,10 @@ class ActivityIndexRequest extends FormRequest
      */
     public function authorize()
     {
+        /**
+         * Every user can view own activities.
+         */
         return true;
-        // return auth_admin()->user()->can('viewAny', User::class);
     }
 
     /**
