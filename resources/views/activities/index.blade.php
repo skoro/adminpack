@@ -26,10 +26,26 @@
                 @{{ props.row.created_ago }}
             </td>
             <td>
-                @{{ props.row.user }}
+                <span v-if="props.row.user">
+                    <span class="user-name">@{{ props.row.user }}</span>
+                    <badge-label type="info">
+                        @{{ props.row.role }}
+                    </badge-label>
+                </span>
+                <small v-else class="text-muted font-italic">
+                    {{ __('Non exist') }}
+                </small>
             </td>
             <td>
-                @{{ props.row.event }}
+                <badge-label v-if="props.row.event == 'new'" type="success">
+                    {{ __('New') }}
+                </badge-label>
+                <badge-label v-if="props.row.event == 'updated'" type="warning">
+                    {{ __('Updated') }}
+                </badge-label>
+                <badge-label v-if="props.row.event == 'deleted'" type="danger">
+                    {{ __('Deleted') }}
+                </badge-label>
             </td>
             <td>
                 @{{ props.row.message }}

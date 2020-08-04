@@ -22,7 +22,7 @@ class ActivityResource extends JsonResource
             'event' => $this->event,
             'message' => $this->message,
             'user' => $user ? $user->name : '',
-            'user_role' => $user ? $user->role->name : '',
+            'role' => $user ? $user->role->name : '',
         ];
     }
 }
