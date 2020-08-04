@@ -73,7 +73,7 @@
             <td>
                 <span :class="{ 'text-muted': props.row.status == 0 }">
                     <span class="user-name">@{{ props.row.name }}</span>
-                    <status-badge :value="props.row.status"></status-badge>
+                    <status-badge :status="props.row.status"/>
                 </span>
             </td>
             <td>

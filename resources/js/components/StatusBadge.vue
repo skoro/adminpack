@@ -1,25 +1,54 @@
 <template>
-    <span
-        class="badge"
-        :class="{ 'badge-success': value, 'badge-secondary': !value }"
-    >
+    <Badge :type="status ? typeActive : typeDisabled">
         {{ label }}
-    </span>
+    </Badge>
 </template>
 
 <script>
+import Badge from './Badge';
+
 export default {
 
+    components: { Badge },
+
     props: {
-        value: {
+
+        /**
+         * Status value.
+         */
+        status: {
             type: [String, Boolean, Number],
             required: true
         },
-        labelActive: {
+
+        /**
+         * Active label.
+         */
+        active: {
             type: String,
             default: 'active'
         },
-        labelDisabled: {
+
+        /**
+         * Disabled label.
+         */
+        disabled: {
+            type: String,
+            default: 'disabled'
+        },
+
+        /**
+         * Badge active type.
+         */
+        typeActive: {
+            type: String,
+            default: 'success'
+        },
+
+        /**
+         * Badge disabled type.
+         */
+        typeDisabled: {
             type: String,
             default: 'disabled'
         }
@@ -27,7 +56,7 @@ export default {
 
     computed: {
         label() {
-            return this.value ? this.labelActive : this.labelDisabled;
+            return this.status ? this.active : this.disabled;
         }
     }
 
