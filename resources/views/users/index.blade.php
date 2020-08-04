@@ -77,7 +77,7 @@
                 </span>
             </td>
             <td>
-                <span class="badge badge-info">@{{ props.row.role }}</span>
+                <badge-label type="info">@{{ props.row.role }}</badge-label>
             </td>
             <td>
                 <span :class="{ 'text-muted': props.row.status == 0 }">
