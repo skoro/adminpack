@@ -25,6 +25,7 @@ import DataPagination from './components/DataPagination';
 import DataFilterText from './components/DataFilterText';
 import DataFilterSelect from './components/DataFilterSelect';
 import StatusBadge from './components/StatusBadge';
+import Badge from './components/Badge';
 
 Vue.component('data-table', DataTable);
 Vue.component('data-column', DataColumn);
@@ -32,6 +33,7 @@ Vue.component('data-pagination', DataPagination);
 Vue.component('data-filter-text', DataFilterText);
 Vue.component('data-filter-select', DataFilterSelect);
 Vue.component('status-badge', StatusBadge);
+Vue.component('badge', Badge);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
