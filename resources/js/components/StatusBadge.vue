@@ -1,15 +1,15 @@
 <template>
-    <Badge :type="status ? typeActive : typeDisabled">
+    <BadgeLabel :type="status ? typeActive : typeDisabled">
         {{ label }}
-    </Badge>
+    </BadgeLabel>
 </template>
 
 <script>
-import Badge from './Badge';
+import BadgeLabel from './BadgeLabel';
 
 export default {
 
-    components: { Badge },
+    components: { BadgeLabel },
 
     props: {
 
