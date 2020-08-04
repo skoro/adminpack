@@ -50,7 +50,7 @@ export default {
          */
         typeDisabled: {
             type: String,
-            default: 'disabled'
+            default: 'secondary'
         }
     },
 
