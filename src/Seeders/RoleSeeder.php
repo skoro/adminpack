@@ -70,6 +70,11 @@ class RoleSeeder extends Seeder
                 'scope' => 'system',
                 'name' => 'manage options',
             ],
+            [
+                'id' => 9,
+                'scope' => 'system',
+                'name' => 'view all activities',
+            ],
         ]);
 
         DB::table('admin_role_perms')->insert([
@@ -81,6 +86,7 @@ class RoleSeeder extends Seeder
             ['role_id' => 1, 'permission_id' => 6],
             ['role_id' => 1, 'permission_id' => 7],
             ['role_id' => 1, 'permission_id' => 8],
+            ['role_id' => 1, 'permission_id' => 9],
         ]);
     }
 }

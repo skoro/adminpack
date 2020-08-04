@@ -125,4 +125,12 @@ class UserPolicy
     {
         return $user->hasPermission('system', 'manage options');
     }
+
+    /**
+     * Determine whether the user can view all the admin activities.
+     */
+    public function viewAllActivities(User $user): bool
+    {
+        return $user->hasPermission('system', 'view all activities');
+    }
 }

@@ -40,5 +40,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manageRoles', 'Skoro\AdminPack\Policies\UserPolicy@manageRoles');
         Gate::define('manageOptions', 'Skoro\AdminPack\Policies\UserPolicy@manageOptions');
         Gate::define('viewActions', 'Skoro\AdminPack\Policies\UserPolicy@viewActions');
+        Gate::define('viewAllActivities', 'Skoro\AdminPack\Policies\UserPolicy@viewAllActivities');
     }
 }
