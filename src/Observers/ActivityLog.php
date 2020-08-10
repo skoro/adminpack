@@ -9,7 +9,7 @@ use Skoro\AdminPack\Support\InstanceDescription;
 /**
  * Activity Log Observer.
  *
- * Tracks 'created', 'updated', 'deleted' and 'forceDeleted'
+ * Tracks 'created', 'updated', 'deleting' and 'forceDeleted'
  * events from the model and creates an entry in the activity log.
  */
 class ActivityLog
