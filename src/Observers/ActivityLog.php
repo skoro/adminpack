@@ -4,6 +4,7 @@ namespace Skoro\AdminPack\Observers;
 
 use Illuminate\Database\Eloquent\Model;
 use Skoro\AdminPack\Models\Activity;
+use Skoro\AdminPack\Repositories\ActivityWriter;
 use Skoro\AdminPack\Support\InstanceDescription;
 
 /**
@@ -20,6 +21,13 @@ class ActivityLog
     const TYPE_NEW = 'new';
     const TYPE_UPDATED = 'updated';
     const TYPE_DELETED = 'deleted';
+
+    protected ActivityWriter $activityWriter;
+
+    public function __construct(ActivityWriter $activityWriter)
+    {
+        $this->activityWriter = $activityWriter;
+    }
 
     /**
      * Handle the Model 'created' event.
@@ -56,26 +64,23 @@ class ActivityLog
     /**
      * Creates an activity entry.
      *
-     * @param string $type  The activity type.
+     * @param string $event The activity event.
      * @param Model  $model The observed model.
      * @return Activity
      */
-    protected function createActivityEntry(string $type, Model $model): Activity
+    protected function createActivityEntry(string $event, Model $model): Activity
     {
         if ($model instanceof InstanceDescription) {
-            $name = $model->getDescription();
+            $message = $model->getDescription();
         } else {
-            $name = get_class($model);
+            $message = get_class($model);
         }
 
-        $activity = new Activity();
-        $activity->user_id = auth()->id();
-        $activity->event = $type;
-        $activity->message = $name;
-        $activity->data = $model->toArray();
-
-        $activity->save();
-
-        return $activity;
+        return $this->activityWriter->commit(
+            auth()->user(),
+            $event,
+            $message,
+            $model->toArray()
+        );
     }
 }
