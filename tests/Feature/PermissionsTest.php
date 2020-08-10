@@ -10,15 +10,6 @@ class PermissionsTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function createAdmin(): User
-    {
-        $roleId = roles()->where('name', 'administrator')->first()->id;
-        return factory(User::class)->create([
-            'role_id' => $roleId,
-            'status' => true,
-        ]);
-    }
-
     protected function createUser(): User
     {
         $roleId = roles()->where('name', 'manager')->first()->id;

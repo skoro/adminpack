@@ -5,6 +5,7 @@ namespace Skoro\AdminPack\Tests;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Skoro\AdminPack\AdminServiceProvider;
+use Skoro\AdminPack\Models\User;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -56,5 +57,17 @@ abstract class TestCase extends BaseTestCase
     public function loginToAdmin(Authenticatable $user)
     {
         return $this->actingAs($user, 'admin');
+    }
+
+    /**
+     * Creates a user with 'administrator' role.
+     */
+    protected function createAdmin(): User
+    {
+        $roleId = roles()->where('name', 'administrator')->first()->id;
+        return factory(User::class)->create([
+            'role_id' => $roleId,
+            'status' => true,
+        ]);
     }
 }
