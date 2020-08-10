@@ -92,6 +92,7 @@ class ActivityLogTest extends TestCase
         $admin = $this->createAdmin();
         $test = factory(User::class)->create([
             'role_id' => roles()->where('name', 'manager')->first()->id,
+            'status' => User::STATUS_ACTIVE,
         ]);
 
         $this->loginToAdmin($admin)
